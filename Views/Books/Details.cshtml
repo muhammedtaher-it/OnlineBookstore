@@ -1,0 +1,300 @@
+@model BookViewModel
+@{
+    ViewData["Title"] = Model.Title;
+    var reviews = ViewBag.Reviews as List<ReviewViewModel> ?? new List<ReviewViewModel>();
+    var rating = ViewBag.Rating as BookRatingViewModel ?? new BookRatingViewModel();
+    var userHasReviewed = ViewBag.UserHasReviewed as bool? ?? false;
+}
+
+<div class="container py-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item"><a asp-action="Index">Books</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <!-- Book Image -->
+        <div class="col-lg-4 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body bg-light d-flex align-items-center justify-content-center" style="min-height: 400px;">
+                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <img src="@Model.ImageUrl" class="img-fluid" alt="@Model.Title" style="max-height: 380px; object-fit: contain;" />
+                    }
+                    else
+                    {
+                        <i class="bi bi-book text-secondary" style="font-size: 10rem;"></i>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Book Info -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <span class="badge bg-info text-dark mb-2">@Model.CategoryName</span>
+                            <h1 class="fw-bold mb-2">@Model.Title</h1>
+                            <p class="lead mb-0">by <span class="fw-bold">@Model.Author</span></p>
+                        </div>
+                        <div class="text-end">
+                            <h2 class="text-primary fw-bold">$@Model.Price.ToString("F2")</h2>
+                            @if (Model.StockQuantity > 0)
+                            {
+                                <span class="badge bg-success">In Stock (@Model.StockQuantity)</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Out of Stock</span>
+                            }
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <!-- Rating Summary -->
+                    <div class="row align-items-center mb-3">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <div class="me-3">
+                                    <span class="display-4 fw-bold text-primary">@rating.AverageRating.ToString("F1")</span>
+                                    <span class="text-muted">/5</span>
+                                </div>
+                                <div>
+                                    <div class="text-warning mb-1">
+                                        @for (int i = 1; i <= 5; i++)
+                                        {
+                                            if (i <= Math.Round(rating.AverageRating))
+                                            {
+                                                <i class="bi bi-star-fill"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="bi bi-star"></i>
+                                            }
+                                        }
+                                    </div>
+                                    <small class="text-muted">@rating.TotalReviews reviews</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="small">
+                                <div class="d-flex align-items-center mb-1">
+                                    <span class="me-2" style="width: 30px;">5 <i class="bi bi-star-fill text-warning small"></i></span>
+                                    <div class="progress flex-grow-1" style="height: 6px;">
+                                        <div class="progress-bar bg-success" style="width: @(rating.TotalReviews > 0 ? (rating.FiveStarCount * 100 / rating.TotalReviews) : 0)%"></div>
+                                    </div>
+                                    <span class="ms-2 text-muted" style="width: 25px;">@rating.FiveStarCount</span>
+                                </div>
+                                <div class="d-flex align-items-center mb-1">
+                                    <span class="me-2" style="width: 30px;">4 <i class="bi bi-star-fill text-warning small"></i></span>
+                                    <div class="progress flex-grow-1" style="height: 6px;">
+                                        <div class="progress-bar bg-success" style="width: @(rating.TotalReviews > 0 ? (rating.FourStarCount * 100 / rating.TotalReviews) : 0)%"></div>
+                                    </div>
+                                    <span class="ms-2 text-muted" style="width: 25px;">@rating.FourStarCount</span>
+                                </div>
+                                <div class="d-flex align-items-center mb-1">
+                                    <span class="me-2" style="width: 30px;">3 <i class="bi bi-star-fill text-warning small"></i></span>
+                                    <div class="progress flex-grow-1" style="height: 6px;">
+                                        <div class="progress-bar bg-warning" style="width: @(rating.TotalReviews > 0 ? (rating.ThreeStarCount * 100 / rating.TotalReviews) : 0)%"></div>
+                                    </div>
+                                    <span class="ms-2 text-muted" style="width: 25px;">@rating.ThreeStarCount</span>
+                                </div>
+                                <div class="d-flex align-items-center mb-1">
+                                    <span class="me-2" style="width: 30px;">2 <i class="bi bi-star-fill text-warning small"></i></span>
+                                    <div class="progress flex-grow-1" style="height: 6px;">
+                                        <div class="progress-bar bg-danger" style="width: @(rating.TotalReviews > 0 ? (rating.TwoStarCount * 100 / rating.TotalReviews) : 0)%"></div>
+                                    </div>
+                                    <span class="ms-2 text-muted" style="width: 25px;">@rating.TwoStarCount</span>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <span class="me-2" style="width: 30px;">1 <i class="bi bi-star-fill text-warning small"></i></span>
+                                    <div class="progress flex-grow-1" style="height: 6px;">
+                                        <div class="progress-bar bg-danger" style="width: @(rating.TotalReviews > 0 ? (rating.OneStarCount * 100 / rating.TotalReviews) : 0)%"></div>
+                                    </div>
+                                    <span class="ms-2 text-muted" style="width: 25px;">@rating.OneStarCount</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <!-- Description -->
+                    <h5 class="fw-bold mb-3">Description</h5>
+                    <p class="text-muted">@(string.IsNullOrEmpty(Model.Description) ? "No description available." : Model.Description)</p>
+
+                    <!-- Book Details -->
+                    <h5 class="fw-bold mb-3">Details</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table class="table table-borderless table-sm">
+                                <tr>
+                                    <td class="text-muted" style="width: 120px;">ISBN:</td>
+                                    <td class="fw-bold">@Model.ISBN</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted">Author:</td>
+                                    <td class="fw-bold">@Model.Author</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted">Category:</td>
+                                    <td class="fw-bold">@Model.CategoryName</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table table-borderless table-sm">
+                                <tr>
+                                    <td class="text-muted" style="width: 120px;">Price:</td>
+                                    <td class="fw-bold text-primary">$@Model.Price.ToString("F2")</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted">Stock:</td>
+                                    <td class="fw-bold @(Model.StockQuantity > 0 ? "text-success" : "text-danger")">@(Model.StockQuantity > 0 ? $"{Model.StockQuantity} available" : "Out of stock")</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <!-- Actions -->
+                    <div class="d-flex gap-2">
+                        @if (Model.StockQuantity > 0 && User.Identity?.IsAuthenticated == true)
+                        {
+                            <form asp-controller="Cart" asp-action="Add" method="post" class="d-inline">
+                                <input type="hidden" name="bookId" value="@Model.BookId" />
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="bi bi-cart-plus me-2"></i>Add to Cart
+                                </button>
+                            </form>
+                        }
+                        else if (User.Identity?.IsAuthenticated != true)
+                        {
+                            <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-lg">
+                                <i class="bi bi-box-arrow-in-right me-2"></i>Login to Purchase
+                            </a>
+                        }
+                        else
+                        {
+                            <button class="btn btn-secondary btn-lg" disabled>
+                                <i class="bi bi-x-circle me-2"></i>Out of Stock
+                            </button>
+                        }
+                        <a asp-action="Index" class="btn btn-outline-secondary btn-lg">Back to Books</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reviews Section -->
+    <div class="row mt-4">
+        <div class="col-lg-12">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0 fw-bold"><i class="bi bi-chat-left-text text-primary me-2"></i>Reviews (@rating.TotalReviews)</h4>
+                </div>
+                <div class="card-body p-4">
+                    @if (User.Identity?.IsAuthenticated == true && !userHasReviewed)
+                    {
+                        <!-- Add Review Form -->
+                        <div class="mb-4 p-3 bg-light rounded">
+                            <h6 class="fw-bold mb-3">Write a Review</h6>
+                            <form asp-action="AddReview" method="post">
+                                <input type="hidden" name="BookId" value="@Model.BookId" />
+                                <div class="mb-3">
+                                    <label class="form-label">Your Rating</label>
+                                    <div class="rating-input">
+                                        @for (int i = 5; i >= 1; i--)
+                                        {
+                                            <input type="radio" id="star@i" name="Rating" value="@i" class="btn-check" @(i == 5 ? "checked" : "") />
+                                            <label for="star@i" class="btn btn-outline-warning btn-sm me-1">
+                                                @i <i class="bi bi-star-fill"></i>
+                                            </label>
+                                        }
+                                    </div>
+                                    <span class="text-danger small" asp-validation-for="Rating"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="Comment" class="form-label">Your Review (Optional)</label>
+                                    <textarea name="Comment" class="form-control" rows="3" placeholder="Share your thoughts about this book..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-send me-2"></i>Submit Review
+                                </button>
+                            </form>
+                        </div>
+                    }
+                    else if (User.Identity?.IsAuthenticated == true && userHasReviewed)
+                    {
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle me-2"></i>You have already reviewed this book. Thank you!
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle me-2"></i>Please <a asp-controller="Account" asp-action="Login">login</a> to write a review.
+                        </div>
+                    }
+
+                    <!-- Reviews List -->
+                    @if (reviews.Any())
+                    {
+                        <div class="reviews-list">
+                            @foreach (var review in reviews)
+                            {
+                                <div class="review-item border-bottom py-3">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-3">
+                                                <i class="bi bi-person-circle text-secondary" style="font-size: 2.5rem;"></i>
+                                            </div>
+                                            <div>
+                                                <h6 class="fw-bold mb-1">@review.UserName</h6>
+                                                <div class="text-warning small">
+                                                    @for (int i = 1; i <= 5; i++)
+                                                    {
+                                                        if (i <= review.Rating)
+                                                        {
+                                                            <i class="bi bi-star-fill"></i>
+                                                        }
+                                                        else
+                                                        {
+                                                            <i class="bi bi-star"></i>
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <small class="text-muted">@review.CreatedAt.ToString("MMM dd, yyyy")</small>
+                                    </div>
+                                    @if (!string.IsNullOrEmpty(review.Comment))
+                                    {
+                                        <p class="mt-2 mb-0 text-muted">@review.Comment</p>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-4">
+                            <i class="bi bi-chat text-muted" style="font-size: 3rem;"></i>
+                            <p class="text-muted mt-2">No reviews yet. Be the first to review this book!</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

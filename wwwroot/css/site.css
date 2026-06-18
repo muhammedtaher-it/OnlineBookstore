@@ -1,0 +1,157 @@
+/* Online Bookstore - Custom Luxury Theme Styles */
+
+/* ضبط الهيكل ليدعم Flexbox الشاشات الكاملة والتثبيت الذكي للفوتر */
+html {
+    font-size: 16px;
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f9; /* خلفية رمادية مائلة للزرقة خفيفة جداً ومريحة */
+    margin: 0;
+}
+
+/* إجبار حاوية المحتوى الرئيسي على التمدد ودفع الفوتر لأسفل */
+.container, main {
+    flex: 1 0 auto;
+}
+
+/* Navbar - اللون الأزرق الداكن الفخم */
+.navbar {
+    background-color: #1e293b !important; /* لون كحلي داكن راقي */
+}
+
+    .navbar .nav-link, .navbar .navbar-brand {
+        color: #ffffff !important;
+    }
+
+        .navbar .nav-link:hover {
+            color: #34d399 !important; /* تحول اللون للأخضر الهادئ عند تمرير الماوس */
+        }
+
+.navbar-brand {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+/* Footer - متناسق مع الهوية الجديدة */
+.footer {
+    flex-shrink: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+    background-color: #0f172a !important; /* أسود كحلي داكن جداً لمنع الشاشات المكسورة */
+    color: #94a3b8 !important;
+}
+
+/* Hero Section - تدرج لوني فخم بين الكحلي والأزرق الملكي */
+.hero-section {
+    background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%) !important;
+}
+
+/* الأزرار الأساسية - تحويلها للأخضر الزمردي المريح للشراء */
+.btn-primary {
+    background-color: #10b981 !important;
+    border-color: #10b981 !important;
+    color: white !important;
+}
+
+    .btn-primary:hover {
+        background-color: #059669 !important;
+        border-color: #059669 !important;
+    }
+
+/* حقول الإدخال عند التركيز وفوقها توهج أخضر خفيف متناسق */
+.form-control:focus, .form-select:focus {
+    border-color: #10b981 !important;
+    box-shadow: 0 0 0 0.25rem rgba(16, 185, 129, 0.25) !important;
+}
+
+/* الأزرار الثانوية (مثل تفاصيل أو إلغاء) */
+.btn-outline-primary {
+    color: #10b981 !important;
+    border-color: #10b981 !important;
+}
+
+    .btn-outline-primary:hover {
+        background-color: #10b981 !important;
+        color: white !important;
+    }
+
+/* البطاقات (Cards) */
+.card {
+    border-radius: 0.75rem;
+    border: none !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* حركة بطاقات الكتب عند تمرير الماوس عليها */
+.book-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+    .book-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1) !important;
+    }
+
+.card-img-wrapper {
+    overflow: hidden;
+    border-radius: 0.75rem 0.75rem 0 0;
+}
+
+/* نجوم التقييم والوسوم التنبيهية - اللون الذهبي الدافئ */
+.rating-input .btn-check:checked + .btn, .text-warning {
+    background-color: #f59e0b !important;
+    border-color: #f59e0b !important;
+    color: #000 !important;
+}
+
+.badge-primary, .bg-primary {
+    background-color: #1e3a8a !important; /* وسوم زرقاء داكنة */
+}
+
+/* الترقيم (Pagination) */
+.pagination .page-link {
+    color: #10b981;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #10b981;
+    border-color: #10b981;
+}
+
+/* جداول البيانات */
+.table th {
+    font-weight: 600;
+    background-color: #f1f5f9;
+}
+
+/* الأنميشن */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* متجاوب مع الشاشات الصغيرة */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    .hero-section .lead {
+        font-size: 1rem;
+    }
+}

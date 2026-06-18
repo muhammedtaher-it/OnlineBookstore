@@ -1,0 +1,87 @@
+@model UserProfileViewModel
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="container py-5">
+    <div class="row">
+        <!-- Profile Sidebar -->
+        <div class="col-lg-4 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center p-4">
+                    <div class="mb-3">
+                        <i class="bi bi-person-circle text-primary" style="font-size: 5rem;"></i>
+                    </div>
+                    <h4 class="fw-bold">@Model.FullName</h4>
+                    <p class="text-muted">@Model.Email</p>
+                    <span class="badge bg-primary">@Model.Role</span>
+                    <hr />
+                    <div class="text-start mt-3">
+                        <p class="mb-2"><i class="bi bi-calendar me-2"></i><strong>Member Since:</strong> @Model.CreatedAt.ToString("MMMM dd, yyyy")</p>
+                        <p class="mb-2"><i class="bi bi-bag me-2"></i><strong>Total Orders:</strong> @Model.TotalOrders</p>
+                        <p class="mb-0"><i class="bi bi-star me-2"></i><strong>Reviews Written:</strong> @Model.TotalReviews</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Content -->
+        <div class="col-lg-8">
+            <!-- Account Info -->
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0 fw-bold"><i class="bi bi-person-gear me-2"></i>Account Information</h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Full Name</label>
+                            <p class="form-control-plaintext border rounded p-2 bg-light">@Model.FullName</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Email</label>
+                            <p class="form-control-plaintext border rounded p-2 bg-light">@Model.Email</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Role</label>
+                            <p class="form-control-plaintext border rounded p-2 bg-light">@Model.Role</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Member Since</label>
+                            <p class="form-control-plaintext border rounded p-2 bg-light">@Model.CreatedAt.ToString("MMMM dd, yyyy")</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0 fw-bold"><i class="bi bi-lightning me-2"></i>Quick Actions</h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <a asp-controller="Orders" asp-action="Index" class="btn btn-outline-primary w-100 py-3">
+                                <i class="bi bi-bag fs-4 d-block mb-2"></i>
+                                My Orders
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <a asp-controller="Books" asp-action="Index" class="btn btn-outline-success w-100 py-3">
+                                <i class="bi bi-book fs-4 d-block mb-2"></i>
+                                Browse Books
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <a asp-controller="Cart" asp-action="Index" class="btn btn-outline-warning w-100 py-3">
+                                <i class="bi bi-cart3 fs-4 d-block mb-2"></i>
+                                My Cart
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

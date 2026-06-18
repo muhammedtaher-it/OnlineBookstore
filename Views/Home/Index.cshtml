@@ -1,0 +1,185 @@
+@model HomeViewModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- Hero Section -->
+<section class="hero-section py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">Discover Your Next Great Read</h1>
+                <p class="lead mb-4">Explore thousands of books across various genres. From bestsellers to hidden gems, find the perfect book for every mood and moment.</p>
+                <div class="d-flex gap-3">
+                    <a asp-controller="Books" asp-action="Index" class="btn btn-light btn-lg fw-bold">
+                        <i class="bi bi-book me-2"></i>Browse Books
+                    </a>
+                    <a asp-controller="Categories" asp-action="Index" class="btn btn-outline-light btn-lg">
+                        <i class="bi bi-grid me-2"></i>Categories
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="hero-image-container">
+                    <i class="bi bi-book-half" style="font-size: 15rem; opacity: 0.3;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Books Section -->
+@if (Model.FeaturedBooks.Any())
+{
+    <section class="py-5">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="fw-bold"><i class="bi bi-star-fill text-warning me-2"></i>Featured Books</h2>
+                <a asp-controller="Books" asp-action="Index" class="btn btn-outline-primary">View All</a>
+            </div>
+            <div class="row g-4">
+                @foreach (var book in Model.FeaturedBooks)
+                {
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="card h-100 shadow-sm border-0 book-card">
+                            <div class="card-img-wrapper bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                                @if (!string.IsNullOrEmpty(book.ImageUrl))
+                                {
+                                    <img src="@book.ImageUrl" class="card-img-top" alt="@book.Title" style="max-height: 100%; object-fit: cover;" />
+                                }
+                                else
+                                {
+                                    <i class="bi bi-book text-secondary" style="font-size: 4rem;"></i>
+                                }
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <h6 class="card-title text-truncate fw-bold">@book.Title</h6>
+                                <p class="card-text text-muted small text-truncate">@book.Author</p>
+                                <div class="mt-auto">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="fw-bold text-primary">$@book.Price.ToString("F2")</span>
+                                        <a asp-controller="Books" asp-action="Details" asp-route-id="@book.BookId" class="btn btn-sm btn-outline-primary">Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}
+
+<!-- Categories Section -->
+@if (Model.Categories.Any())
+{
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="fw-bold mb-4"><i class="bi bi-grid-3x3-gap-fill text-primary me-2"></i>Browse by Category</h2>
+            <div class="row g-4">
+                @foreach (var category in Model.Categories.Take(8))
+                {
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <a asp-controller="Books" asp-action="Index" asp-route-category="@category.CategoryId" class="text-decoration-none">
+                            <div class="card h-100 shadow-sm border-0 category-card hover-shadow">
+                                <div class="card-body text-center py-4">
+                                    <i class="bi bi-folder-fill text-primary mb-3" style="font-size: 2.5rem;"></i>
+                                    <h5 class="card-title text-dark">@category.Name</h5>
+                                    <p class="card-text text-muted small">@(category.Description?.Length > 60 ? category.Description.Substring(0, 60) + "..." : category.Description)</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+            <div class="text-center mt-4">
+                <a asp-controller="Categories" asp-action="Index" class="btn btn-primary">View All Categories</a>
+            </div>
+        </div>
+    </section>
+}
+
+<!-- Latest Books Section -->
+@if (Model.LatestBooks.Any())
+{
+    <section class="py-5">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="fw-bold"><i class="bi bi-clock-history text-primary me-2"></i>Latest Arrivals</h2>
+                <a asp-controller="Books" asp-action="Index" asp-route-sort="newest" class="btn btn-outline-primary">View All</a>
+            </div>
+            <div class="row g-4">
+                @foreach (var book in Model.LatestBooks.Take(4))
+                {
+                    <div class="col-6 col-md-3">
+                        <div class="card h-100 shadow-sm border-0 book-card">
+                            <div class="position-relative">
+                                <div class="card-img-wrapper bg-light d-flex align-items-center justify-content-center" style="height: 250px;">
+                                    @if (!string.IsNullOrEmpty(book.ImageUrl))
+                                    {
+                                        <img src="@book.ImageUrl" class="card-img-top" alt="@book.Title" style="max-height: 100%; object-fit: cover;" />
+                                    }
+                                    else
+                                    {
+                                        <i class="bi bi-book text-secondary" style="font-size: 5rem;"></i>
+                                    }
+                                </div>
+                                <span class="badge bg-success position-absolute top-0 end-0 m-2">New</span>
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <h6 class="card-title fw-bold">@book.Title</h6>
+                                <p class="card-text text-muted small">@book.Author</p>
+                                <div class="mt-auto d-flex justify-content-between align-items-center">
+                                    <span class="fw-bold text-primary">$@book.Price.ToString("F2")</span>
+                                    <a asp-controller="Books" asp-action="Details" asp-route-id="@book.BookId" class="btn btn-sm btn-primary">View</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}
+
+<!-- Call to Action Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-3">Join Our Community of Book Lovers</h2>
+        <p class="lead mb-4">Create an account to save favorites, write reviews, and track your orders.</p>
+        <div class="d-flex justify-content-center gap-3">
+            @if (User.Identity?.IsAuthenticated != true)
+            {
+                <a asp-controller="Account" asp-action="Register" class="btn btn-light btn-lg fw-bold">Get Started</a>
+                <a asp-controller="Account" asp-action="Login" class="btn btn-outline-light btn-lg">Sign In</a>
+            }
+            else
+            {
+                <a asp-controller="Books" asp-action="Index" class="btn btn-light btn-lg fw-bold">Continue Shopping</a>
+            }
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+        }
+        .book-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+        }
+        .category-card {
+            transition: all 0.3s ease;
+        }
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+            background-color: #f8f9fa;
+        }
+    </style>
+}

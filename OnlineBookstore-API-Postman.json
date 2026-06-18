@@ -1,0 +1,278 @@
+{
+  "info": {
+    "_postman_id": "online-bookstore-api-2024",
+    "name": "Online Bookstore API",
+    "description": "RESTful API collection for Online Bookstore - CS401 Advanced Web Development",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get All Books",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:7001/api/books",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "7001",
+          "path": ["api", "books"]
+        },
+        "description": "Retrieve all books from the catalog"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Book by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:7001/api/books/1",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "7001",
+          "path": ["api", "books", "1"]
+        },
+        "description": "Retrieve a specific book by its ID"
+      },
+      "response": []
+    },
+    {
+      "name": "Search Books by Title",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:7001/api/books?search=Harry",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "7001",
+          "path": ["api", "books"],
+          "query": [
+            {
+              "key": "search",
+              "value": "Harry"
+            }
+          ]
+        },
+        "description": "Search books by title"
+      },
+      "response": []
+    },
+    {
+      "name": "Filter Books by Author",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:7001/api/books?author=Rowling",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "7001",
+          "path": ["api", "books"],
+          "query": [
+            {
+              "key": "author",
+              "value": "Rowling"
+            }
+          ]
+        },
+        "description": "Filter books by author name"
+      },
+      "response": []
+    },
+    {
+      "name": "Filter by Category",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:7001/api/books?category=1",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "7001",
+          "path": ["api", "books"],
+          "query": [
+            {
+              "key": "category",
+              "value": "1"
+            }
+          ]
+        },
+        "description": "Filter books by category ID"
+      },
+      "response": []
+    },
+    {
+      "name": "Sort Books by Price (Low to High)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:7001/api/books?sort=price_asc",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "7001",
+          "path": ["api", "books"],
+          "query": [
+            {
+              "key": "sort",
+              "value": "price_asc"
+            }
+          ]
+        },
+        "description": "Sort books by price ascending"
+      },
+      "response": []
+    },
+    {
+      "name": "Sort Books by Price (High to Low)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:7001/api/books?sort=price_desc",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "7001",
+          "path": ["api", "books"],
+          "query": [
+            {
+              "key": "sort",
+              "value": "price_desc"
+            }
+          ]
+        },
+        "description": "Sort books by price descending"
+      },
+      "response": []
+    },
+    {
+      "name": "Sort Books by Title (A-Z)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:7001/api/books?sort=title_asc",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "7001",
+          "path": ["api", "books"],
+          "query": [
+            {
+              "key": "sort",
+              "value": "title_asc"
+            }
+          ]
+        },
+        "description": "Sort books by title alphabetically"
+      },
+      "response": []
+    },
+    {
+      "name": "Create Book",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"The Pragmatic Programmer\",\n  \"author\": "Andrew Hunt & David Thomas",\n  \"isbn\": \"9780201616224\",\n  \"price\": 49.99,\n  \"description\": "Your journey to mastery. Classic software development book.",\n  \"imageUrl\": \"/images/books/pragmatic.jpg\",\n  \"stockQuantity\": 25,\n  \"categoryId\": 5\n}"
+        },
+        "url": {
+          "raw": "https://localhost:7001/api/books",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "7001",
+          "path": ["api", "books"]
+        },
+        "description": "Create a new book in the catalog"
+      },
+      "response": []
+    },
+    {
+      "name": "Update Book",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"The Pragmatic Programmer (Updated)\",\n  \"author\": \"Andrew Hunt & David Thomas\",\n  \"isbn\": \"9780201616224\",\n  \"price\": 54.99,\n  \"description\": \"Updated edition. Your journey to mastery.\",\n  \"imageUrl\": \"/images/books/pragmatic.jpg\",\n  \"stockQuantity\": 30,\n  \"categoryId\": 5\n}"
+        },
+        "url": {
+          "raw": "https://localhost:7001/api/books/21",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "7001",
+          "path": ["api", "books", "21"]
+        },
+        "description": "Update an existing book"
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Book",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:7001/api/books/21",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "7001",
+          "path": ["api", "books", "21"]
+        },
+        "description": "Delete a book from the catalog"
+      },
+      "response": []
+    },
+    {
+      "name": "Search by Author",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:7001/api/books/search/author/Rowling",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "7001",
+          "path": ["api", "books", "search", "author", "Rowling"]
+        },
+        "description": "Search books by author name"
+      },
+      "response": []
+    },
+    {
+      "name": "Search by Category",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:7001/api/books/search/category/5",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "7001",
+          "path": ["api", "books", "search", "category", "5"]
+        },
+        "description": "Get all books in a specific category"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://localhost:7001"
+    }
+  ]
+}

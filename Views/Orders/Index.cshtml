@@ -1,10 +1,10 @@
 @model List<OrderViewModel>
 @{
-    ViewData["Title"] = "My Orders";
+    ViewData["Title"] = "طلباتي";
 }
 
 <div class="container py-4">
-    <h1 class="fw-bold mb-4"><i class="bi bi-bag text-primary me-2"></i>My Orders</h1>
+    <h1 class="fw-bold mb-4"><i class="bi bi-bag text-primary me-2"></i>طلباتي</h1>
 
     @if (Model.Any())
     {
@@ -14,32 +14,37 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="card shadow-sm border-0 h-100">
                         <div class="card-header bg-light py-3 d-flex justify-content-between align-items-center">
-                            <span class="fw-bold">Order #@order.OrderId</span>
+                            <span class="fw-bold">طلب رقم #@order.OrderId</span>
                             <span class="badge @(order.Status == "Completed" || order.Status == "Delivered" ? "bg-success" : order.Status == "Pending" ? "bg-warning text-dark" : "bg-info")">
-                                @order.Status
+                                @(order.Status == "Completed" ? "مكتمل" :
+                                  order.Status == "Delivered" ? "تم التوصيل" :
+                                  order.Status == "Pending" ? "قيد الانتظار" :
+                                  order.Status == "Processing" ? "قيد المعالجة" :
+                                  order.Status == "Cancelled" ? "ملغي" :
+                                  order.Status)
                             </span>
                         </div>
                         <div class="card-body">
                             <div class="mb-3">
-                                <small class="text-muted d-block">Order Date</small>
+                                <small class="text-muted d-block">تاريخ الطلب</small>
                                 <span>@order.OrderDate.ToString("MMM dd, yyyy HH:mm")</span>
                             </div>
                             <div class="mb-3">
-                                <small class="text-muted d-block">Items</small>
-                                <span>@order.OrderDetails.Count items</span>
+                                <small class="text-muted d-block">المنتجات</small>
+                                <span>@order.OrderDetails.Count منتجات</span>
                             </div>
                             <div class="mb-3">
-                                <small class="text-muted d-block">Shipping Address</small>
-                                <span>@(order.ShippingCity), @(order.ShippingCountry)</span>
+                                <small class="text-muted d-block">عنوان الشحن</small>
+                                <span>@(order.ShippingCity)، @(order.ShippingCountry)</span>
                             </div>
                             <div class="d-flex justify-content-between align-items-center pt-2 border-top">
-                                <span class="text-muted">Total</span>
-                                <span class="fw-bold text-primary fs-5">$@order.TotalPrice.ToString("F2")</span>
+                                <span class="text-muted">الإجمالي</span>
+                                <span class="fw-bold text-primary fs-5">@order.TotalPrice.ToString("F2") $</span>
                             </div>
                         </div>
                         <div class="card-footer bg-white border-top-0">
                             <a asp-action="Details" asp-route-id="@order.OrderId" class="btn btn-outline-primary btn-sm w-100">
-                                <i class="bi bi-eye me-2"></i>View Details
+                                <i class="bi bi-eye me-2"></i>عرض التفاصيل
                             </a>
                         </div>
                     </div>
@@ -51,10 +56,10 @@
     {
         <div class="text-center py-5">
             <i class="bi bi-bag-x text-muted" style="font-size: 5rem;"></i>
-            <h3 class="mt-3 text-muted">No orders yet</h3>
-            <p class="text-muted">You haven't placed any orders yet.</p>
+            <h3 class="mt-3 text-muted">لا توجد طلبات بعد</h3>
+            <p class="text-muted">لم تقم بتقديم أي طلبات بعد.</p>
             <a asp-controller="Books" asp-action="Index" class="btn btn-primary btn-lg mt-3">
-                <i class="bi bi-book me-2"></i>Start Shopping
+                <i class="bi bi-book me-2"></i>ابدأ التسوق
             </a>
         </div>
     }

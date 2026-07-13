@@ -10,8 +10,8 @@
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
-            <li class="breadcrumb-item"><a asp-action="Index">Books</a></li>
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">الرئيسية</a></li>
+            <li class="breadcrumb-item"><a asp-action="Index">الكتب</a></li>
             <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
         </ol>
     </nav>
@@ -41,17 +41,17 @@
                         <div>
                             <span class="badge bg-info text-dark mb-2">@Model.CategoryName</span>
                             <h1 class="fw-bold mb-2">@Model.Title</h1>
-                            <p class="lead mb-0">by <span class="fw-bold">@Model.Author</span></p>
+                            <p class="lead mb-0">بواسطة <span class="fw-bold">@Model.Author</span></p>
                         </div>
                         <div class="text-end">
-                            <h2 class="text-primary fw-bold">$@Model.Price.ToString("F2")</h2>
+                            <h2 class="text-primary fw-bold">@Model.Price.ToString("F2") $</h2>
                             @if (Model.StockQuantity > 0)
                             {
-                                <span class="badge bg-success">In Stock (@Model.StockQuantity)</span>
+                                <span class="badge bg-success">متوفر (@Model.StockQuantity)</span>
                             }
                             else
                             {
-                                <span class="badge bg-danger">Out of Stock</span>
+                                <span class="badge bg-danger">غير متوفر</span>
                             }
                         </div>
                     </div>
@@ -80,7 +80,7 @@
                                             }
                                         }
                                     </div>
-                                    <small class="text-muted">@rating.TotalReviews reviews</small>
+                                    <small class="text-muted">@rating.TotalReviews تقييم</small>
                                 </div>
                             </div>
                         </div>
@@ -128,24 +128,24 @@
                     <hr />
 
                     <!-- Description -->
-                    <h5 class="fw-bold mb-3">Description</h5>
-                    <p class="text-muted">@(string.IsNullOrEmpty(Model.Description) ? "No description available." : Model.Description)</p>
+                    <h5 class="fw-bold mb-3">الوصف</h5>
+                    <p class="text-muted">@(string.IsNullOrEmpty(Model.Description) ? "لا يوجد وصف متاح." : Model.Description)</p>
 
                     <!-- Book Details -->
-                    <h5 class="fw-bold mb-3">Details</h5>
+                    <h5 class="fw-bold mb-3">التفاصيل</h5>
                     <div class="row">
                         <div class="col-md-6">
                             <table class="table table-borderless table-sm">
                                 <tr>
-                                    <td class="text-muted" style="width: 120px;">ISBN:</td>
+                                    <td class="text-muted" style="width: 120px;">الترقيم الدولي (ISBN):</td>
                                     <td class="fw-bold">@Model.ISBN</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-muted">Author:</td>
+                                    <td class="text-muted">المؤلف:</td>
                                     <td class="fw-bold">@Model.Author</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-muted">Category:</td>
+                                    <td class="text-muted">التصنيف:</td>
                                     <td class="fw-bold">@Model.CategoryName</td>
                                 </tr>
                             </table>
@@ -153,12 +153,12 @@
                         <div class="col-md-6">
                             <table class="table table-borderless table-sm">
                                 <tr>
-                                    <td class="text-muted" style="width: 120px;">Price:</td>
-                                    <td class="fw-bold text-primary">$@Model.Price.ToString("F2")</td>
+                                    <td class="text-muted" style="width: 120px;">السعر:</td>
+                                    <td class="fw-bold text-primary">@Model.Price.ToString("F2") $</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-muted">Stock:</td>
-                                    <td class="fw-bold @(Model.StockQuantity > 0 ? "text-success" : "text-danger")">@(Model.StockQuantity > 0 ? $"{Model.StockQuantity} available" : "Out of stock")</td>
+                                    <td class="text-muted">المخزون:</td>
+                                    <td class="fw-bold @(Model.StockQuantity > 0 ? "text-success" : "text-danger")">@(Model.StockQuantity > 0 ? $"{Model.StockQuantity} متوفر" : "غير متوفر")</td>
                                 </tr>
                             </table>
                         </div>
@@ -173,23 +173,23 @@
                             <form asp-controller="Cart" asp-action="Add" method="post" class="d-inline">
                                 <input type="hidden" name="bookId" value="@Model.BookId" />
                                 <button type="submit" class="btn btn-primary btn-lg">
-                                    <i class="bi bi-cart-plus me-2"></i>Add to Cart
+                                    <i class="bi bi-cart-plus me-2"></i>أضف إلى السلة
                                 </button>
                             </form>
                         }
                         else if (User.Identity?.IsAuthenticated != true)
                         {
                             <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-lg">
-                                <i class="bi bi-box-arrow-in-right me-2"></i>Login to Purchase
+                                <i class="bi bi-box-arrow-in-right me-2"></i>تسجيل الدخول للشراء
                             </a>
                         }
                         else
                         {
                             <button class="btn btn-secondary btn-lg" disabled>
-                                <i class="bi bi-x-circle me-2"></i>Out of Stock
+                                <i class="bi bi-x-circle me-2"></i>غير متوفر
                             </button>
                         }
-                        <a asp-action="Index" class="btn btn-outline-secondary btn-lg">Back to Books</a>
+                        <a asp-action="Index" class="btn btn-outline-secondary btn-lg">العودة للكتب</a>
                     </div>
                 </div>
             </div>
@@ -201,18 +201,18 @@
         <div class="col-lg-12">
             <div class="card shadow-sm border-0">
                 <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0 fw-bold"><i class="bi bi-chat-left-text text-primary me-2"></i>Reviews (@rating.TotalReviews)</h4>
+                    <h4 class="mb-0 fw-bold"><i class="bi bi-chat-left-text text-primary me-2"></i>التقييمات (@rating.TotalReviews)</h4>
                 </div>
                 <div class="card-body p-4">
                     @if (User.Identity?.IsAuthenticated == true && !userHasReviewed)
                     {
                         <!-- Add Review Form -->
                         <div class="mb-4 p-3 bg-light rounded">
-                            <h6 class="fw-bold mb-3">Write a Review</h6>
+                            <h6 class="fw-bold mb-3">اكتب تقييماً</h6>
                             <form asp-action="AddReview" method="post">
                                 <input type="hidden" name="BookId" value="@Model.BookId" />
                                 <div class="mb-3">
-                                    <label class="form-label">Your Rating</label>
+                                    <label class="form-label">تقييمك</label>
                                     <div class="rating-input">
                                         @for (int i = 5; i >= 1; i--)
                                         {
@@ -225,11 +225,11 @@
                                     <span class="text-danger small" asp-validation-for="Rating"></span>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="Comment" class="form-label">Your Review (Optional)</label>
-                                    <textarea name="Comment" class="form-control" rows="3" placeholder="Share your thoughts about this book..."></textarea>
+                                    <label for="Comment" class="form-label">مراجعتك (اختياري)</label>
+                                    <textarea name="Comment" class="form-control" rows="3" placeholder="شاركنا رأيك حول هذا الكتاب..."></textarea>
                                 </div>
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="bi bi-send me-2"></i>Submit Review
+                                    <i class="bi bi-send me-2"></i>إرسال التقييم
                                 </button>
                             </form>
                         </div>
@@ -237,13 +237,13 @@
                     else if (User.Identity?.IsAuthenticated == true && userHasReviewed)
                     {
                         <div class="alert alert-info">
-                            <i class="bi bi-info-circle me-2"></i>You have already reviewed this book. Thank you!
+                            <i class="bi bi-info-circle me-2"></i>لقد قمت بتقييم هذا الكتاب مسبقاً. شكراً لك!
                         </div>
                     }
                     else
                     {
                         <div class="alert alert-info">
-                            <i class="bi bi-info-circle me-2"></i>Please <a asp-controller="Account" asp-action="Login">login</a> to write a review.
+                            <i class="bi bi-info-circle me-2"></i>يرجى <a asp-controller="Account" asp-action="Login">تسجيل الدخول</a> لكتابة تقييم.
                         </div>
                     }
 
@@ -290,7 +290,7 @@
                     {
                         <div class="text-center py-4">
                             <i class="bi bi-chat text-muted" style="font-size: 3rem;"></i>
-                            <p class="text-muted mt-2">No reviews yet. Be the first to review this book!</p>
+                            <p class="text-muted mt-2">لا توجد تقييمات بعد. كن أول من يقيم هذا الكتاب!</p>
                         </div>
                     }
                 </div>

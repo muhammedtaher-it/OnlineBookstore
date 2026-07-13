@@ -39,13 +39,29 @@ body {
 }
 
 /* Footer - متناسق مع الهوية الجديدة */
-.footer {
-    flex-shrink: 0;
-    width: 100%;
-    white-space: nowrap;
-    line-height: 60px;
-    background-color: #0f172a !important; /* أسود كحلي داكن جداً لمنع الشاشات المكسورة */
-    color: #94a3b8 !important;
+/* === الفوتر (Footer) - العصري الأبيض === */
+.footer.bg-dark {
+    background-color: #ffffff !important; /* خلفية بيضاء */
+    color: #475569 !important; /* نص رمادي غامق للقراءة المريحة */
+    border-top: 4px solid var(--accent-saffron); /* خط ذهبي سميك في الأعلى للفصل */
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.03); /* ظل خفيف للأعلى ليعطي عمق */
+}
+
+.footer a {
+    color: var(--primary-indigo) !important; /* روابط باللون الكحلي */
+    font-weight: 600;
+}
+
+    .footer a:hover {
+        color: var(--accent-saffron) !important; /* روابط ذهبية عند التمرير */
+    }
+
+.footer h5 {
+    color: var(--primary-indigo) !important; /* عناوين الأقسام بالكحلي */
+}
+
+.footer .text-muted {
+    color: #64748b !important; /* النصوص الثانوية بلون رمادي واضح */
 }
 
 /* Hero Section - تدرج لوني فخم بين الكحلي والأزرق الملكي */

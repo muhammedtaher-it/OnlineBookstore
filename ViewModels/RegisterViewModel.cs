@@ -4,25 +4,25 @@ namespace OnlineBookstore.ViewModels
 {
     public class RegisterViewModel
     {
-        [Required]
-        [StringLength(100)]
-        [Display(Name = "Full Name")]
+        [Display(Name = "الاسم الكامل")]
+        [Required(ErrorMessage = "حقل الاسم الكامل مطلوب")]
         public string FullName { get; set; } = string.Empty;
 
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "البريد الإلكتروني")]
+        [Required(ErrorMessage = "حقل البريد الإلكتروني مطلوب")]
+        [EmailAddress(ErrorMessage = "صيغة البريد الإلكتروني غير صحيحة")]
         public string Email { get; set; } = string.Empty;
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Display(Name = "كلمة المرور")]
+        [Required(ErrorMessage = "حقل كلمة المرور مطلوب")]
+        [StringLength(100, ErrorMessage = "يجب أن تكون كلمة المرور {2} أحرف على الأقل.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
         public string Password { get; set; } = string.Empty;
 
+        [Display(Name = "تأكيد كلمة المرور")]
+        [Required(ErrorMessage = "حقل تأكيد كلمة المرور مطلوب")]
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = "كلمة المرور وتأكيدها غير متطابقتين.")]
         public string ConfirmPassword { get; set; } = string.Empty;
     }
 }

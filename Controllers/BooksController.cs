@@ -104,7 +104,7 @@ namespace OnlineBookstore.Controllers
             try
             {
                 await _reviewService.CreateReviewAsync(userId, model.BookId, model.Rating, model.Comment);
-                TempData["Success"] = "Your review has been submitted successfully!";
+                TempData["Success"] = "تم إرسال تقييمك بنجاح!";
             }
             catch (InvalidOperationException ex)
             {
@@ -152,7 +152,7 @@ namespace OnlineBookstore.Controllers
             await _bookRepository.AddAsync(book);
             await _bookRepository.SaveChangesAsync();
 
-            TempData["Success"] = $"Book '{book.Title}' has been created successfully!";
+            TempData["Success"] = $"تم إنشاء الكتاب '{book.Title}' بنجاح!";
             return RedirectToAction(nameof(Index));
         }
 
@@ -222,7 +222,7 @@ namespace OnlineBookstore.Controllers
             await _bookRepository.UpdateAsync(book);
             await _bookRepository.SaveChangesAsync();
 
-            TempData["Success"] = $"Book '{book.Title}' has been updated successfully!";
+            TempData["Success"] = $"تم تحديث الكتاب '{book.Title}' بنجاح!";
             return RedirectToAction(nameof(Index));
         }
 
@@ -267,7 +267,7 @@ namespace OnlineBookstore.Controllers
             await _bookRepository.DeleteAsync(id);
             await _bookRepository.SaveChangesAsync();
 
-            TempData["Success"] = $"Book '{book.Title}' has been deleted successfully!";
+            TempData["Success"] = $"تم حذف الكتاب '{book.Title}' بنجاح!";
             return RedirectToAction(nameof(Index));
         }
     }

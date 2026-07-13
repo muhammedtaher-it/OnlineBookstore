@@ -41,11 +41,11 @@ namespace OnlineBookstore.Controllers
             try
             {
                 await _cartService.AddToCartAsync(userId, bookId, quantity);
-                TempData["Success"] = "Item added to cart successfully!";
+                TempData["Success"] = "تمت إضافة العنصر إلى السلة بنجاح!";
             }
             catch (Exception ex)
             {
-                TempData["Error"] = $"Failed to add item to cart: {ex.Message}";
+                TempData["Error"] = $"فشل إضافة العنصر إلى السلة: {ex.Message}";
             }
 
             return RedirectToAction(nameof(Index));
@@ -65,11 +65,11 @@ namespace OnlineBookstore.Controllers
             try
             {
                 await _cartService.UpdateQuantityAsync(cartItemId, quantity);
-                TempData["Success"] = "Cart updated successfully!";
+                TempData["Success"] = "تم تحديث السلة بنجاح!";
             }
             catch (Exception ex)
             {
-                TempData["Error"] = $"Failed to update cart: {ex.Message}";
+                TempData["Error"] = $"فشل تحديث السلة: {ex.Message}";
             }
 
             return RedirectToAction(nameof(Index));
@@ -89,11 +89,11 @@ namespace OnlineBookstore.Controllers
             try
             {
                 await _cartService.RemoveFromCartAsync(cartItemId);
-                TempData["Success"] = "Item removed from cart successfully!";
+                TempData["Success"] = "تمت إزالة العنصر من السلة بنجاح!";
             }
             catch (Exception ex)
             {
-                TempData["Error"] = $"Failed to remove item: {ex.Message}";
+                TempData["Error"] = $"فشل إزالة العنصر: {ex.Message}";
             }
 
             return RedirectToAction(nameof(Index));
@@ -113,11 +113,11 @@ namespace OnlineBookstore.Controllers
             try
             {
                 await _cartService.ClearCartAsync(userId);
-                TempData["Success"] = "Cart cleared successfully!";
+                TempData["Success"] = "تم تفريغ السلة بنجاح!";
             }
             catch (Exception ex)
             {
-                TempData["Error"] = $"Failed to clear cart: {ex.Message}";
+                TempData["Error"] = $"فشل تفريغ السلة: {ex.Message}";
             }
 
             return RedirectToAction(nameof(Index));

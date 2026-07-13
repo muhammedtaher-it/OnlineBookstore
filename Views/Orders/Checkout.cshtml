@@ -1,16 +1,16 @@
 @model CheckoutViewModel
 @{
-    ViewData["Title"] = "Checkout";
+    ViewData["Title"] = "إتمام الشراء";
 }
 
 <div class="container py-4">
-    <h1 class="fw-bold mb-4"><i class="bi bi-credit-card text-primary me-2"></i>Checkout</h1>
+    <h1 class="fw-bold mb-4"><i class="bi bi-credit-card text-primary me-2"></i>إتمام الشراء</h1>
 
     <div class="row">
         <div class="col-lg-8">
             <div class="card shadow-sm border-0 mb-4">
                 <div class="card-header bg-light py-3">
-                    <h5 class="mb-0 fw-bold"><i class="bi bi-truck me-2"></i>Shipping Information</h5>
+                    <h5 class="mb-0 fw-bold"><i class="bi bi-truck me-2"></i>معلومات الشحن</h5>
                 </div>
                 <div class="card-body p-4">
                     <form asp-action="Checkout" method="post">
@@ -18,45 +18,45 @@
 
                         <div class="mb-3">
                             <label asp-for="ShippingAddress" class="form-label fw-bold"></label>
-                            <input asp-for="ShippingAddress" class="form-control" placeholder="Enter your street address" />
+                            <input asp-for="ShippingAddress" class="form-control" placeholder="أدخل عنوان الشارع الخاص بك" />
                             <span asp-validation-for="ShippingAddress" class="text-danger small"></span>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label asp-for="ShippingCity" class="form-label fw-bold"></label>
-                                <input asp-for="ShippingCity" class="form-control" placeholder="City" />
+                                <input asp-for="ShippingCity" class="form-control" placeholder="المدينة" />
                                 <span asp-validation-for="ShippingCity" class="text-danger small"></span>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label asp-for="ShippingPostalCode" class="form-label fw-bold"></label>
-                                <input asp-for="ShippingPostalCode" class="form-control" placeholder="Postal Code" />
+                                <input asp-for="ShippingPostalCode" class="form-control" placeholder="الرمز البريدي" />
                                 <span asp-validation-for="ShippingPostalCode" class="text-danger small"></span>
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label asp-for="ShippingCountry" class="form-label fw-bold"></label>
-                            <input asp-for="ShippingCountry" class="form-control" placeholder="Country" />
+                            <input asp-for="ShippingCountry" class="form-control" placeholder="الدولة" />
                             <span asp-validation-for="ShippingCountry" class="text-danger small"></span>
                         </div>
 
                         <div class="mb-4">
                             <label asp-for="PaymentMethod" class="form-label fw-bold"></label>
                             <select asp-for="PaymentMethod" class="form-select">
-                                <option value="Credit Card">Credit Card</option>
-                                <option value="Debit Card">Debit Card</option>
-                                <option value="PayPal">PayPal</option>
-                                <option value="Cash on Delivery">Cash on Delivery</option>
+                                <option value="Credit Card">بطاقة ائتمان</option>
+                                <option value="Debit Card">بطاقة خصم مباشر</option>
+                                <option value="PayPal">باي بال (PayPal)</option>
+                                <option value="Cash on Delivery">الدفع عند الاستلام</option>
                             </select>
                             <span asp-validation-for="PaymentMethod" class="text-danger small"></span>
                         </div>
 
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-primary btn-lg">
-                                <i class="bi bi-check-lg me-2"></i>Place Order
+                                <i class="bi bi-check-lg me-2"></i>تأكيد الطلب
                             </button>
-                            <a asp-controller="Cart" asp-action="Index" class="btn btn-outline-secondary btn-lg">Back to Cart</a>
+                            <a asp-controller="Cart" asp-action="Index" class="btn btn-outline-secondary btn-lg">العودة للسلة</a>
                         </div>
                     </form>
                 </div>
@@ -66,7 +66,7 @@
         <div class="col-lg-4">
             <div class="card shadow-sm border-0">
                 <div class="card-header bg-light py-3">
-                    <h5 class="mb-0 fw-bold">Order Summary</h5>
+                    <h5 class="mb-0 fw-bold">ملخص الطلب</h5>
                 </div>
                 <div class="card-body">
                     @if (Model.Cart != null)
@@ -75,22 +75,22 @@
                         {
                             <div class="d-flex justify-content-between mb-2">
                                 <span class="text-muted">@item.Title x @item.Quantity</span>
-                                <span>$@item.SubTotal.ToString("F2")</span>
+                                <span>@item.SubTotal.ToString("F2") $</span>
                             </div>
                         }
                         <hr />
                         <div class="d-flex justify-content-between mb-2">
-                            <span class="text-muted">Subtotal (@Model.Cart.TotalItems items)</span>
-                            <span>$@Model.Cart.TotalPrice.ToString("F2")</span>
+                            <span class="text-muted">المجموع الفرعي (@Model.Cart.TotalItems منتجات)</span>
+                            <span>@Model.Cart.TotalPrice.ToString("F2") $</span>
                         </div>
                         <div class="d-flex justify-content-between mb-2">
-                            <span class="text-muted">Shipping</span>
-                            <span class="text-success">Free</span>
+                            <span class="text-muted">الشحن</span>
+                            <span class="text-success">مجاني</span>
                         </div>
                         <hr />
                         <div class="d-flex justify-content-between">
-                            <span class="fw-bold">Total</span>
-                            <span class="fw-bold text-primary fs-5">$@Model.Cart.TotalPrice.ToString("F2")</span>
+                            <span class="fw-bold">الإجمالي</span>
+                            <span class="fw-bold text-primary fs-5">@Model.Cart.TotalPrice.ToString("F2") $</span>
                         </div>
                     }
                 </div>

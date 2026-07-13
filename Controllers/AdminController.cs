@@ -88,14 +88,14 @@ namespace OnlineBookstore.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                TempData["Error"] = "Invalid user ID.";
+                TempData["Error"] = "معرف المستخدم غير صالح.";
                 return RedirectToAction(nameof(Users));
             }
 
             var user = await _userRepository.GetByIdAsync(id);
             if (user == null)
             {
-                TempData["Error"] = "User not found.";
+                TempData["Error"] = "المستخدم غير موجود.";
                 return RedirectToAction(nameof(Users));
             }
 
@@ -103,14 +103,14 @@ namespace OnlineBookstore.Controllers
             var currentUserId = _userManager.GetUserId(User);
             if (id == currentUserId)
             {
-                TempData["Error"] = "You cannot delete your own account.";
+                TempData["Error"] = "لا يمكنك حذف حسابك الخاص.";
                 return RedirectToAction(nameof(Users));
             }
 
             await _userRepository.DeleteAsync(id);
             await _userRepository.SaveChangesAsync();
 
-            TempData["Success"] = $"User '{user.FullName}' has been deleted successfully.";
+            TempData["Success"] = $"تم حذف المستخدم '{user.FullName}' بنجاح.";
             return RedirectToAction(nameof(Users));
         }
     }

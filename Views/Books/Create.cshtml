@@ -1,6 +1,6 @@
 @model BookViewModel
 @{
-    ViewData["Title"] = "Create Book";
+    ViewData["Title"] = "إضافة كتاب";
 }
 
 <div class="container py-5">
@@ -8,7 +8,7 @@
         <div class="col-lg-8">
             <div class="card shadow border-0">
                 <div class="card-header bg-primary text-white py-3">
-                    <h4 class="mb-0"><i class="bi bi-plus-lg me-2"></i>Create New Book</h4>
+                    <h4 class="mb-0"><i class="bi bi-plus-lg me-2"></i>إضافة كتاب جديد</h4>
                 </div>
                 <div class="card-body p-4">
                     <form asp-action="Create" method="post">
@@ -17,12 +17,12 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label asp-for="Title" class="form-label fw-bold"></label>
-                                <input asp-for="Title" class="form-control" placeholder="Enter book title" />
+                                <input asp-for="Title" class="form-control" placeholder="أدخل عنوان الكتاب" />
                                 <span asp-validation-for="Title" class="text-danger small"></span>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label asp-for="Author" class="form-label fw-bold"></label>
-                                <input asp-for="Author" class="form-control" placeholder="Enter author name" />
+                                <input asp-for="Author" class="form-control" placeholder="أدخل اسم المؤلف" />
                                 <span asp-validation-for="Author" class="text-danger small"></span>
                             </div>
                         </div>
@@ -30,7 +30,7 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label asp-for="ISBN" class="form-label fw-bold"></label>
-                                <input asp-for="ISBN" class="form-control" placeholder="Enter ISBN (13 digits)" maxlength="13" />
+                                <input asp-for="ISBN" class="form-control" placeholder="أدخل الرقم الدولي (13 رقم)" maxlength="13" />
                                 <span asp-validation-for="ISBN" class="text-danger small"></span>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -45,36 +45,36 @@
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label asp-for="CategoryId" class="form-label fw-bold">Category</label>
+                                <label asp-for="CategoryId" class="form-label fw-bold">التصنيف</label>
                                 <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-select">
-                                    <option value="">-- Select Category --</option>
+                                    <option value="">-- اختر التصنيف --</option>
                                 </select>
                                 <span asp-validation-for="CategoryId" class="text-danger small"></span>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label asp-for="StockQuantity" class="form-label fw-bold"></label>
-                                <input asp-for="StockQuantity" class="form-control" type="number" min="0" />
+                                <input asp-for="StockQuantity" class="form-control" type="number" min="0" placeholder="أدخل الكمية المتوفرة" />
                                 <span asp-validation-for="StockQuantity" class="text-danger small"></span>
                             </div>
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="ImageUrl" class="form-label fw-bold">Image URL</label>
-                            <input asp-for="ImageUrl" class="form-control" placeholder="Enter image URL (optional)" />
+                            <label asp-for="ImageUrl" class="form-label fw-bold">رابط الصورة</label>
+                            <input asp-for="ImageUrl" class="form-control" placeholder="أدخل رابط الصورة (اختياري)" />
                             <span asp-validation-for="ImageUrl" class="text-danger small"></span>
                         </div>
 
                         <div class="mb-3">
                             <label asp-for="Description" class="form-label fw-bold"></label>
-                            <textarea asp-for="Description" class="form-control" rows="4" placeholder="Enter book description"></textarea>
+                            <textarea asp-for="Description" class="form-control" rows="4" placeholder="أدخل وصف الكتاب"></textarea>
                             <span asp-validation-for="Description" class="text-danger small"></span>
                         </div>
 
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-check-lg me-2"></i>Create Book
+                                <i class="bi bi-check-lg me-2"></i>إضافة الكتاب
                             </button>
-                            <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+                            <a asp-action="Index" class="btn btn-outline-secondary">إلغاء</a>
                         </div>
                     </form>
                 </div>

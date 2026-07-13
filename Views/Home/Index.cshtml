@@ -1,6 +1,6 @@
 @model HomeViewModel
 @{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "الرئيسية";
 }
 
 <!-- Hero Section -->
@@ -8,14 +8,14 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
-                <h1 class="display-4 fw-bold mb-4">Discover Your Next Great Read</h1>
-                <p class="lead mb-4">Explore thousands of books across various genres. From bestsellers to hidden gems, find the perfect book for every mood and moment.</p>
+                <h1 class="display-4 fw-bold mb-4">اكتشف كتابك المميز القادم</h1>
+                <p class="lead mb-4">استكشف آلاف الكتب في مختلف التصنيفات. من أكثر الكتب مبيعاً إلى الجواهر المخفية، اعثر على الكتاب المثالي لكل وقت ومزاج.</p>
                 <div class="d-flex gap-3">
                     <a asp-controller="Books" asp-action="Index" class="btn btn-light btn-lg fw-bold">
-                        <i class="bi bi-book me-2"></i>Browse Books
+                        <i class="bi bi-book me-2"></i>تصفح الكتب
                     </a>
                     <a asp-controller="Categories" asp-action="Index" class="btn btn-outline-light btn-lg">
-                        <i class="bi bi-grid me-2"></i>Categories
+                        <i class="bi bi-grid me-2"></i>التصنيفات
                     </a>
                 </div>
             </div>
@@ -34,8 +34,8 @@
     <section class="py-5">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="fw-bold"><i class="bi bi-star-fill text-warning me-2"></i>Featured Books</h2>
-                <a asp-controller="Books" asp-action="Index" class="btn btn-outline-primary">View All</a>
+                <h2 class="fw-bold"><i class="bi bi-star-fill text-warning me-2"></i>الكتب المميزة</h2>
+                <a asp-controller="Books" asp-action="Index" class="btn btn-outline-primary">عرض الكل</a>
             </div>
             <div class="row g-4">
                 @foreach (var book in Model.FeaturedBooks)
@@ -57,8 +57,8 @@
                                 <p class="card-text text-muted small text-truncate">@book.Author</p>
                                 <div class="mt-auto">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <span class="fw-bold text-primary">$@book.Price.ToString("F2")</span>
-                                        <a asp-controller="Books" asp-action="Details" asp-route-id="@book.BookId" class="btn btn-sm btn-outline-primary">Details</a>
+                                        <span class="fw-bold text-primary">@book.Price.ToString("F2") $</span>
+                                        <a asp-controller="Books" asp-action="Details" asp-route-id="@book.BookId" class="btn btn-sm btn-outline-primary">التفاصيل</a>
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
 {
     <section class="py-5 bg-light">
         <div class="container">
-            <h2 class="fw-bold mb-4"><i class="bi bi-grid-3x3-gap-fill text-primary me-2"></i>Browse by Category</h2>
+            <h2 class="fw-bold mb-4"><i class="bi bi-grid-3x3-gap-fill text-primary me-2"></i>تصفح حسب التصنيف</h2>
             <div class="row g-4">
                 @foreach (var category in Model.Categories.Take(8))
                 {
@@ -93,7 +93,7 @@
                 }
             </div>
             <div class="text-center mt-4">
-                <a asp-controller="Categories" asp-action="Index" class="btn btn-primary">View All Categories</a>
+                <a asp-controller="Categories" asp-action="Index" class="btn btn-primary">عرض جميع التصنيفات</a>
             </div>
         </div>
     </section>
@@ -105,8 +105,8 @@
     <section class="py-5">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="fw-bold"><i class="bi bi-clock-history text-primary me-2"></i>Latest Arrivals</h2>
-                <a asp-controller="Books" asp-action="Index" asp-route-sort="newest" class="btn btn-outline-primary">View All</a>
+                <h2 class="fw-bold"><i class="bi bi-clock-history text-primary me-2"></i>أحدث الإصدارات</h2>
+                <a asp-controller="Books" asp-action="Index" asp-route-sort="newest" class="btn btn-outline-primary">عرض الكل</a>
             </div>
             <div class="row g-4">
                 @foreach (var book in Model.LatestBooks.Take(4))
@@ -124,14 +124,14 @@
                                         <i class="bi bi-book text-secondary" style="font-size: 5rem;"></i>
                                     }
                                 </div>
-                                <span class="badge bg-success position-absolute top-0 end-0 m-2">New</span>
+                                <span class="badge bg-success position-absolute top-0 end-0 m-2">جديد</span>
                             </div>
                             <div class="card-body d-flex flex-column">
                                 <h6 class="card-title fw-bold">@book.Title</h6>
                                 <p class="card-text text-muted small">@book.Author</p>
                                 <div class="mt-auto d-flex justify-content-between align-items-center">
-                                    <span class="fw-bold text-primary">$@book.Price.ToString("F2")</span>
-                                    <a asp-controller="Books" asp-action="Details" asp-route-id="@book.BookId" class="btn btn-sm btn-primary">View</a>
+                                    <span class="fw-bold text-primary">@book.Price.ToString("F2") $</span>
+                                    <a asp-controller="Books" asp-action="Details" asp-route-id="@book.BookId" class="btn btn-sm btn-primary">عرض</a>
                                 </div>
                             </div>
                         </div>
@@ -145,17 +145,17 @@
 <!-- Call to Action Section -->
 <section class="py-5 bg-primary text-white">
     <div class="container text-center">
-        <h2 class="fw-bold mb-3">Join Our Community of Book Lovers</h2>
-        <p class="lead mb-4">Create an account to save favorites, write reviews, and track your orders.</p>
+        <h2 class="fw-bold mb-3">انضم إلى مجتمع محبي القراءة</h2>
+        <p class="lead mb-4">أنشئ حساباً لحفظ المفضلات، وكتابة المراجعات، وتتبع طلباتك.</p>
         <div class="d-flex justify-content-center gap-3">
             @if (User.Identity?.IsAuthenticated != true)
             {
-                <a asp-controller="Account" asp-action="Register" class="btn btn-light btn-lg fw-bold">Get Started</a>
-                <a asp-controller="Account" asp-action="Login" class="btn btn-outline-light btn-lg">Sign In</a>
+                <a asp-controller="Account" asp-action="Register" class="btn btn-light btn-lg fw-bold">ابدأ الآن</a>
+                <a asp-controller="Account" asp-action="Login" class="btn btn-outline-light btn-lg">تسجيل الدخول</a>
             }
             else
             {
-                <a asp-controller="Books" asp-action="Index" class="btn btn-light btn-lg fw-bold">Continue Shopping</a>
+                <a asp-controller="Books" asp-action="Index" class="btn btn-light btn-lg fw-bold">متابعة التسوق</a>
             }
         </div>
     </div>
@@ -166,20 +166,24 @@
         .hero-section {
             background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
         }
+
         .book-card {
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .book-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
-        }
+
+            .book-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+            }
+
         .category-card {
             transition: all 0.3s ease;
         }
-        .category-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
-            background-color: #f8f9fa;
-        }
+
+            .category-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+                background-color: #f8f9fa;
+            }
     </style>
 }

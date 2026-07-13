@@ -76,7 +76,7 @@ namespace OnlineBookstore.Controllers
             var cart = await _cartService.GetCartAsync(userId);
             if (!cart.CartItems.Any())
             {
-                TempData["Error"] = "Your cart is empty. Add some items before checkout.";
+                TempData["Error"] = "سلتك فارغة. أضف بعض العناصر قبل إتمام الشراء.";
                 return RedirectToAction("Index", "Cart");
             }
 
@@ -108,7 +108,7 @@ namespace OnlineBookstore.Controllers
             try
             {
                 var order = await _orderService.CreateOrderAsync(userId, model);
-                TempData["Success"] = "Order placed successfully!";
+                TempData["Success"] = "تم تأكيد الطلب بنجاح!";
                 return RedirectToAction("Confirmation", new { id = order.OrderId });
             }
             catch (InvalidOperationException ex)
@@ -154,11 +154,22 @@ namespace OnlineBookstore.Controllers
             var success = await _orderService.UpdateOrderStatusAsync(orderId, status);
             if (!success)
             {
-                TempData["Error"] = "Order not found.";
+                TempData["Error"] = "الطلب غير موجود.";
                 return RedirectToAction(nameof(Manage));
             }
 
-            TempData["Success"] = $"Order #{orderId} status updated to {status}.";
+            // ترجمة حالة الطلب للعرض في رسالة النجاح للمشرف
+            var statusAr = status switch
+            {
+                "Pending" => "قيد الانتظار",
+                "Processing" => "قيد المعالجة",
+                "Completed" => "مكتمل",
+                "Delivered" => "تم التوصيل",
+                "Cancelled" => "ملغي",
+                _ => status // إذا كانت حالة أخرى، اتركها كما هي
+            };
+
+            TempData["Success"] = $"تم تحديث حالة الطلب رقم #{orderId} إلى '{statusAr}'.";
             return RedirectToAction(nameof(Manage));
         }
     }

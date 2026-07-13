@@ -1,20 +1,20 @@
 @model BookListViewModel
 @{
-    ViewData["Title"] = "Books";
+    ViewData["Title"] = "الكتب";
 }
 
 <div class="container py-4">
     <!-- Header -->
     <div class="row align-items-center mb-4">
         <div class="col-md-6">
-            <h1 class="fw-bold mb-0"><i class="bi bi-book text-primary me-2"></i>Books</h1>
-            <p class="text-muted mb-0">@Model.TotalCount books available</p>
+            <h1 class="fw-bold mb-0"><i class="bi bi-book text-primary me-2"></i>الكتب</h1>
+            <p class="text-muted mb-0">@Model.TotalCount كتاب متوفر</p>
         </div>
         <div class="col-md-6 text-md-end mt-3 mt-md-0">
             @if (User.IsInRole("Admin"))
             {
                 <a asp-action="Create" class="btn btn-primary">
-                    <i class="bi bi-plus-lg me-2"></i>Add New Book
+                    <i class="bi bi-plus-lg me-2"></i>إضافة كتاب جديد
                 </a>
             }
         </div>
@@ -27,18 +27,18 @@
                 <div class="col-md-4">
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-search"></i></span>
-                        <input type="text" name="search" class="form-control" placeholder="Search by title..." value="@Model.SearchTerm" />
+                        <input type="text" name="search" class="form-control" placeholder="ابحث بالعنوان..." value="@Model.SearchTerm" />
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-person"></i></span>
-                        <input type="text" name="author" class="form-control" placeholder="Filter by author..." value="@Model.Author" />
+                        <input type="text" name="author" class="form-control" placeholder="تصفية حسب المؤلف..." value="@Model.Author" />
                     </div>
                 </div>
                 <div class="col-md-3">
                     <select name="category" class="form-select">
-                        <option value="">All Categories</option>
+                        <option value="">جميع التصنيفات</option>
                         @foreach (var cat in Model.Categories)
                         {
                             @if (Model.CategoryId == cat.CategoryId)
@@ -53,16 +53,16 @@
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary w-100">Filter</button>
+                    <button type="submit" class="btn btn-primary w-100">تصفية</button>
                 </div>
                 <div class="col-12">
                     <div class="d-flex flex-wrap gap-2 align-items-center">
-                        <span class="text-muted small">Sort by:</span>
-                        <a asp-action="Index" asp-route-search="@Model.SearchTerm" asp-route-author="@Model.Author" asp-route-category="@Model.CategoryId" class="btn btn-sm @(string.IsNullOrEmpty(Model.SortOrder) ? "btn-primary" : "btn-outline-secondary")">Default</a>
-                        <a asp-action="Index" asp-route-search="@Model.SearchTerm" asp-route-author="@Model.Author" asp-route-category="@Model.CategoryId" asp-route-sort="price_asc" class="btn btn-sm @(Model.SortOrder == "price_asc" ? "btn-primary" : "btn-outline-secondary")">Price: Low to High</a>
-                        <a asp-action="Index" asp-route-search="@Model.SearchTerm" asp-route-author="@Model.Author" asp-route-category="@Model.CategoryId" asp-route-sort="price_desc" class="btn btn-sm @(Model.SortOrder == "price_desc" ? "btn-primary" : "btn-outline-secondary")">Price: High to Low</a>
-                        <a asp-action="Index" asp-route-search="@Model.SearchTerm" asp-route-author="@Model.Author" asp-route-category="@Model.CategoryId" asp-route-sort="title_asc" class="btn btn-sm @(Model.SortOrder == "title_asc" ? "btn-primary" : "btn-outline-secondary")">Title A-Z</a>
-                        <a asp-action="Index" asp-route-search="@Model.SearchTerm" asp-route-author="@Model.Author" asp-route-category="@Model.CategoryId" asp-route-sort="newest" class="btn btn-sm @(Model.SortOrder == "newest" ? "btn-primary" : "btn-outline-secondary")">Newest</a>
+                        <span class="text-muted small">ترتيب حسب:</span>
+                        <a asp-action="Index" asp-route-search="@Model.SearchTerm" asp-route-author="@Model.Author" asp-route-category="@Model.CategoryId" class="btn btn-sm @(string.IsNullOrEmpty(Model.SortOrder) ? "btn-primary" : "btn-outline-secondary")">الافتراضي</a>
+                        <a asp-action="Index" asp-route-search="@Model.SearchTerm" asp-route-author="@Model.Author" asp-route-category="@Model.CategoryId" asp-route-sort="price_asc" class="btn btn-sm @(Model.SortOrder == "price_asc" ? "btn-primary" : "btn-outline-secondary")">السعر: من الأقل للأعلى</a>
+                        <a asp-action="Index" asp-route-search="@Model.SearchTerm" asp-route-author="@Model.Author" asp-route-category="@Model.CategoryId" asp-route-sort="price_desc" class="btn btn-sm @(Model.SortOrder == "price_desc" ? "btn-primary" : "btn-outline-secondary")">السعر: من الأعلى للأقل</a>
+                        <a asp-action="Index" asp-route-search="@Model.SearchTerm" asp-route-author="@Model.Author" asp-route-category="@Model.CategoryId" asp-route-sort="title_asc" class="btn btn-sm @(Model.SortOrder == "title_asc" ? "btn-primary" : "btn-outline-secondary")">العنوان: أ - ي</a>
+                        <a asp-action="Index" asp-route-search="@Model.SearchTerm" asp-route-author="@Model.Author" asp-route-category="@Model.CategoryId" asp-route-sort="newest" class="btn btn-sm @(Model.SortOrder == "newest" ? "btn-primary" : "btn-outline-secondary")">الأحدث</a>
                     </div>
                 </div>
             </form>
@@ -95,9 +95,9 @@
                             <p class="card-text text-muted small mb-2 text-truncate">@book.Author</p>
                             <div class="mt-auto">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <span class="fw-bold text-primary">$@book.Price.ToString("F2")</span>
+                                    <span class="fw-bold text-primary">@book.Price.ToString("F2") $</span>
                                     <div class="btn-group">
-                                        <a asp-action="Details" asp-route-id="@book.BookId" class="btn btn-sm btn-outline-primary">Details</a>
+                                        <a asp-action="Details" asp-route-id="@book.BookId" class="btn btn-sm btn-outline-primary">التفاصيل</a>
                                         @if (User.Identity?.IsAuthenticated == true)
                                         {
                                             <form asp-controller="Cart" asp-action="Add" method="post" class="d-inline">
@@ -124,7 +124,7 @@
                     @if (Model.CurrentPage > 1)
                     {
                         <li class="page-item">
-                            <a class="page-link" asp-action="Index" asp-route-page="@(Model.CurrentPage - 1)" asp-route-search="@Model.SearchTerm" asp-route-author="@Model.Author" asp-route-category="@Model.CategoryId" asp-route-sort="@Model.SortOrder">Previous</a>
+                            <a class="page-link" asp-action="Index" asp-route-page="@(Model.CurrentPage - 1)" asp-route-search="@Model.SearchTerm" asp-route-author="@Model.Author" asp-route-category="@Model.CategoryId" asp-route-sort="@Model.SortOrder">السابق</a>
                         </li>
                     }
 
@@ -147,7 +147,7 @@
                     @if (Model.CurrentPage < Model.TotalPages)
                     {
                         <li class="page-item">
-                            <a class="page-link" asp-action="Index" asp-route-page="@(Model.CurrentPage + 1)" asp-route-search="@Model.SearchTerm" asp-route-author="@Model.Author" asp-route-category="@Model.CategoryId" asp-route-sort="@Model.SortOrder">Next</a>
+                            <a class="page-link" asp-action="Index" asp-route-page="@(Model.CurrentPage + 1)" asp-route-search="@Model.SearchTerm" asp-route-author="@Model.Author" asp-route-category="@Model.CategoryId" asp-route-sort="@Model.SortOrder">التالي</a>
                         </li>
                     }
                 </ul>
@@ -158,9 +158,9 @@
     {
         <div class="text-center py-5">
             <i class="bi bi-search text-muted" style="font-size: 4rem;"></i>
-            <h4 class="mt-3 text-muted">No books found</h4>
-            <p class="text-muted">Try adjusting your search criteria.</p>
-            <a asp-action="Index" class="btn btn-primary">Clear Filters</a>
+            <h4 class="mt-3 text-muted">لا توجد كتب</h4>
+            <p class="text-muted">حاول تعديل معايير البحث.</p>
+            <a asp-action="Index" class="btn btn-primary">مسح التصفية</a>
         </div>
     }
 </div>
@@ -170,9 +170,10 @@
         .book-card {
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .book-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
-        }
+
+            .book-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+            }
     </style>
 }

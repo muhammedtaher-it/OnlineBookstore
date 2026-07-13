@@ -59,7 +59,7 @@ namespace OnlineBookstore.Controllers
 
                 await _userManager.AddToRoleAsync(user, "User");
                 await _signInManager.SignInAsync(user, isPersistent: false);
-                TempData["Success"] = "Registration successful! Welcome to Online Bookstore.";
+                TempData["Success"] = "تم التسجيل بنجاح! مرحباً بك في متجر الكتب.";
                 return RedirectToAction("Index", "Home");
             }
 
@@ -100,7 +100,7 @@ namespace OnlineBookstore.Controllers
 
             if (result.Succeeded)
             {
-                TempData["Success"] = "Login successful! Welcome back.";
+                TempData["Success"] = "تم تسجيل الدخول بنجاح! مرحباً بعودتك.";
                 if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                     return Redirect(returnUrl);
                 return RedirectToAction("Index", "Home");
@@ -108,11 +108,11 @@ namespace OnlineBookstore.Controllers
 
             if (result.IsLockedOut)
             {
-                ModelState.AddModelError(string.Empty, "Account locked out. Please try again later.");
+                ModelState.AddModelError(string.Empty, "تم قفل الحساب. يرجى المحاولة مرة أخرى لاحقاً.");
                 return View(model);
             }
 
-            ModelState.AddModelError(string.Empty, "Invalid login attempt. Please check your email and password.");
+            ModelState.AddModelError(string.Empty, "محاولة تسجيل دخول غير صالحة. يرجى التحقق من بريدك الإلكتروني وكلمة المرور.");
             return View(model);
         }
 
@@ -122,7 +122,7 @@ namespace OnlineBookstore.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            TempData["Success"] = "You have been logged out successfully.";
+            TempData["Success"] = "تم تسجيل الخروج بنجاح.";
             return RedirectToAction("Index", "Home");
         }
 

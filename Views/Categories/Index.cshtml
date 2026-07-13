@@ -1,19 +1,19 @@
 @model List<CategoryViewModel>
 @{
-    ViewData["Title"] = "Categories";
+    ViewData["Title"] = "التصنيفات";
 }
 
 <div class="container py-4">
     <div class="row align-items-center mb-4">
         <div class="col-md-6">
-            <h1 class="fw-bold mb-0"><i class="bi bi-grid text-primary me-2"></i>Categories</h1>
-            <p class="text-muted mb-0">Browse books by category</p>
+            <h1 class="fw-bold mb-0"><i class="bi bi-grid text-primary me-2"></i>التصنيفات</h1>
+            <p class="text-muted mb-0">تصفح الكتب حسب التصنيف</p>
         </div>
         <div class="col-md-6 text-md-end mt-3 mt-md-0">
             @if (User.IsInRole("Admin"))
             {
                 <a asp-action="Create" class="btn btn-primary">
-                    <i class="bi bi-plus-lg me-2"></i>Add Category
+                    <i class="bi bi-plus-lg me-2"></i>إضافة تصنيف
                 </a>
             }
         </div>
@@ -33,23 +33,23 @@
                             </div>
                             <div class="flex-grow-1 ms-3">
                                 <h5 class="card-title fw-bold mb-0">@category.Name</h5>
-                                <small class="text-muted">@category.BookCount books</small>
+                                <small class="text-muted">@category.BookCount كتاب</small>
                             </div>
                         </div>
-                        <p class="card-text text-muted">@(string.IsNullOrEmpty(category.Description) ? "No description available." : category.Description)</p>
+                        <p class="card-text text-muted">@(string.IsNullOrEmpty(category.Description) ? "لا يوجد وصف متاح." : category.Description)</p>
                         <div class="d-flex gap-2 mt-3">
                             <a asp-action="Details" asp-route-id="@category.CategoryId" class="btn btn-outline-primary btn-sm">
-                                <i class="bi bi-eye me-1"></i>View Books
+                                <i class="bi bi-eye me-1"></i>عرض الكتب
                             </a>
                             <a asp-controller="Books" asp-action="Index" asp-route-category="@category.CategoryId" class="btn btn-primary btn-sm">
-                                <i class="bi bi-book me-1"></i>Browse
+                                <i class="bi bi-book me-1"></i>تصفح
                             </a>
                             @if (User.IsInRole("Admin"))
                             {
-                                <a asp-action="Edit" asp-route-id="@category.CategoryId" class="btn btn-outline-warning btn-sm">
+                                <a asp-action="Edit" asp-route-id="@category.CategoryId" class="btn btn-outline-warning btn-sm" title="تعديل">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                <a asp-action="Delete" asp-route-id="@category.CategoryId" class="btn btn-outline-danger btn-sm">
+                                <a asp-action="Delete" asp-route-id="@category.CategoryId" class="btn btn-outline-danger btn-sm" title="حذف">
                                     <i class="bi bi-trash"></i>
                                 </a>
                             }
@@ -66,9 +66,10 @@
         .category-card {
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .category-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
-        }
+
+            .category-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+            }
     </style>
 }

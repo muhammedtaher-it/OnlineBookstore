@@ -1,6 +1,6 @@
 @model RegisterViewModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "إنشاء حساب";
 }
 
 <div class="container py-5">
@@ -8,7 +8,7 @@
         <div class="col-md-5">
             <div class="card shadow border-0">
                 <div class="card-header bg-primary text-white text-center py-3">
-                    <h4 class="mb-0"><i class="bi bi-person-plus me-2"></i>Create Account</h4>
+                    <h4 class="mb-0"><i class="bi bi-person-plus me-2"></i>إنشاء حساب</h4>
                 </div>
                 <div class="card-body p-4">
                     <form asp-controller="Account" asp-action="Register" method="post">
@@ -18,7 +18,7 @@
                             <label asp-for="FullName" class="form-label"></label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-person"></i></span>
-                                <input asp-for="FullName" class="form-control" placeholder="Enter your full name" />
+                                <input asp-for="FullName" class="form-control" placeholder="أدخل اسمك الكامل" />
                             </div>
                             <span asp-validation-for="FullName" class="text-danger small"></span>
                         </div>
@@ -27,7 +27,7 @@
                             <label asp-for="Email" class="form-label"></label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                                <input asp-for="Email" class="form-control" placeholder="Enter your email" />
+                                <input asp-for="Email" class="form-control" placeholder="أدخل بريدك الإلكتروني" />
                             </div>
                             <span asp-validation-for="Email" class="text-danger small"></span>
                         </div>
@@ -36,30 +36,30 @@
                             <label asp-for="Password" class="form-label"></label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                                <input asp-for="Password" class="form-control" placeholder="Create a password" />
+                                <input asp-for="Password" class="form-control" placeholder="أنشئ كلمة مرور" />
                             </div>
                             <span asp-validation-for="Password" class="text-danger small"></span>
-                            <div class="form-text">Password must be at least 6 characters long.</div>
+                            <div class="form-text">يجب أن تتكون كلمة المرور من 6 أحرف على الأقل.</div>
                         </div>
 
                         <div class="mb-3">
                             <label asp-for="ConfirmPassword" class="form-label"></label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
-                                <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm your password" />
+                                <input asp-for="ConfirmPassword" class="form-control" placeholder="تأكيد كلمة المرور" />
                             </div>
                             <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
                         </div>
 
                         <div class="d-grid">
                             <button type="submit" class="btn btn-primary btn-lg">
-                                <i class="bi bi-person-plus me-2"></i>Register
+                                <i class="bi bi-person-plus me-2"></i>تسجيل
                             </button>
                         </div>
                     </form>
                 </div>
                 <div class="card-footer text-center py-3 bg-light">
-                    <p class="mb-0">Already have an account? <a asp-controller="Account" asp-action="Login" class="text-decoration-none">Login here</a></p>
+                    <p class="mb-0">لديك حساب بالفعل؟ <a asp-controller="Account" asp-action="Login" class="text-decoration-none">تسجيل الدخول من هنا</a></p>
                 </div>
             </div>
         </div>

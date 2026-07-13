@@ -1,10 +1,10 @@
 @model DashboardViewModel
 @{
-    ViewData["Title"] = "Admin Dashboard";
+    ViewData["Title"] = "لوحة التحكم";
 }
 
 <div class="container py-4">
-    <h1 class="fw-bold mb-4"><i class="bi bi-speedometer2 text-primary me-2"></i>Admin Dashboard</h1>
+    <h1 class="fw-bold mb-4"><i class="bi bi-speedometer2 text-primary me-2"></i>لوحة التحكم</h1>
 
     <!-- Statistics Cards -->
     <div class="row g-4 mb-4">
@@ -13,7 +13,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 class="text-white-50 mb-1">Total Users</h6>
+                            <h6 class="text-white-50 mb-1">إجمالي المستخدمين</h6>
                             <h3 class="mb-0 fw-bold">@Model.TotalUsers</h3>
                         </div>
                         <i class="bi bi-people-fill" style="font-size: 2.5rem; opacity: 0.5;"></i>
@@ -26,7 +26,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 class="text-white-50 mb-1">Total Books</h6>
+                            <h6 class="text-white-50 mb-1">إجمالي الكتب</h6>
                             <h3 class="mb-0 fw-bold">@Model.TotalBooks</h3>
                         </div>
                         <i class="bi bi-book-fill" style="font-size: 2.5rem; opacity: 0.5;"></i>
@@ -39,7 +39,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 class="text-white-50 mb-1">Total Orders</h6>
+                            <h6 class="text-white-50 mb-1">إجمالي الطلبات</h6>
                             <h3 class="mb-0 fw-bold">@Model.TotalOrders</h3>
                         </div>
                         <i class="bi bi-bag-fill" style="font-size: 2.5rem; opacity: 0.5;"></i>
@@ -52,8 +52,8 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 class="text-dark-50 mb-1">Total Revenue</h6>
-                            <h3 class="mb-0 fw-bold">$@Model.TotalRevenue.ToString("F0")</h3>
+                            <h6 class="text-dark-50 mb-1">إجمالي الإيرادات</h6>
+                            <h3 class="mb-0 fw-bold">@Model.TotalRevenue.ToString("F0") $</h3>
                         </div>
                         <i class="bi bi-currency-dollar" style="font-size: 2.5rem; opacity: 0.5;"></i>
                     </div>
@@ -67,7 +67,7 @@
             <div class="card shadow-sm border-0">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
-                        <h6 class="text-muted mb-1">Pending Orders</h6>
+                        <h6 class="text-muted mb-1">طلبات قيد الانتظار</h6>
                         <h4 class="mb-0 fw-bold text-warning">@Model.PendingOrders</h4>
                     </div>
                     <i class="bi bi-hourglass-split text-warning" style="font-size: 2rem;"></i>
@@ -78,7 +78,7 @@
             <div class="card shadow-sm border-0">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
-                        <h6 class="text-muted mb-1">Completed</h6>
+                        <h6 class="text-muted mb-1">طلبات مكتملة</h6>
                         <h4 class="mb-0 fw-bold text-success">@Model.CompletedOrders</h4>
                     </div>
                     <i class="bi bi-check-circle-fill text-success" style="font-size: 2rem;"></i>
@@ -92,18 +92,18 @@
         <div class="col-lg-6">
             <div class="card shadow-sm border-0">
                 <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0 fw-bold"><i class="bi bi-clock-history text-primary me-2"></i>Recent Orders</h5>
-                    <a asp-action="Orders" class="btn btn-sm btn-outline-primary">View All</a>
+                    <h5 class="mb-0 fw-bold"><i class="bi bi-clock-history text-primary me-2"></i>آخر الطلبات</h5>
+                    <a asp-action="Orders" class="btn btn-sm btn-outline-primary">عرض الكل</a>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-hover mb-0">
                             <thead class="table-light">
                                 <tr>
-                                    <th>Order #</th>
-                                    <th>Customer</th>
-                                    <th>Total</th>
-                                    <th>Status</th>
+                                    <th>رقم الطلب</th>
+                                    <th>العميل</th>
+                                    <th>الإجمالي</th>
+                                    <th>الحالة</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -112,10 +112,15 @@
                                     <tr>
                                         <td class="fw-bold">#@order.OrderId</td>
                                         <td>@order.CustomerName</td>
-                                        <td class="fw-bold text-primary">$@order.TotalPrice.ToString("F2")</td>
+                                        <td class="fw-bold text-primary">@order.TotalPrice.ToString("F2") $</td>
                                         <td>
                                             <span class="badge @(order.Status == "Completed" || order.Status == "Delivered" ? "bg-success" : order.Status == "Pending" ? "bg-warning text-dark" : "bg-info")">
-                                                @order.Status
+                                                @(order.Status == "Completed" ? "مكتمل" :
+                                                  order.Status == "Delivered" ? "تم التوصيل" :
+                                                  order.Status == "Pending" ? "قيد الانتظار" :
+                                                  order.Status == "Processing" ? "قيد المعالجة" :
+                                                  order.Status == "Cancelled" ? "ملغي" :
+                                                  order.Status)
                                             </span>
                                         </td>
                                     </tr>
@@ -130,17 +135,17 @@
         <div class="col-lg-6">
             <div class="card shadow-sm border-0">
                 <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0 fw-bold"><i class="bi bi-people text-primary me-2"></i>Recent Users</h5>
-                    <a asp-action="Users" class="btn btn-sm btn-outline-primary">View All</a>
+                    <h5 class="mb-0 fw-bold"><i class="bi bi-people text-primary me-2"></i>آخر المستخدمين</h5>
+                    <a asp-action="Users" class="btn btn-sm btn-outline-primary">عرض الكل</a>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-hover mb-0">
                             <thead class="table-light">
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Joined</th>
+                                    <th>الاسم</th>
+                                    <th>البريد الإلكتروني</th>
+                                    <th>تاريخ الانضمام</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -165,32 +170,32 @@
         <div class="col-12">
             <div class="card shadow-sm border-0">
                 <div class="card-header bg-white py-3">
-                    <h5 class="mb-0 fw-bold"><i class="bi bi-lightning text-primary me-2"></i>Quick Actions</h5>
+                    <h5 class="mb-0 fw-bold"><i class="bi bi-lightning text-primary me-2"></i>إجراءات سريعة</h5>
                 </div>
                 <div class="card-body">
                     <div class="row g-3">
                         <div class="col-md-3">
                             <a asp-controller="Books" asp-action="Create" class="btn btn-outline-primary w-100 py-3">
                                 <i class="bi bi-plus-lg fs-4 d-block mb-2"></i>
-                                Add Book
+                                إضافة كتاب
                             </a>
                         </div>
                         <div class="col-md-3">
                             <a asp-controller="Categories" asp-action="Create" class="btn btn-outline-success w-100 py-3">
                                 <i class="bi bi-folder-plus fs-4 d-block mb-2"></i>
-                                Add Category
+                                إضافة تصنيف
                             </a>
                         </div>
                         <div class="col-md-3">
                             <a asp-action="Orders" class="btn btn-outline-info w-100 py-3">
                                 <i class="bi bi-bag-check fs-4 d-block mb-2"></i>
-                                Manage Orders
+                                إدارة الطلبات
                             </a>
                         </div>
                         <div class="col-md-3">
                             <a asp-action="Users" class="btn btn-outline-warning w-100 py-3">
                                 <i class="bi bi-people fs-4 d-block mb-2"></i>
-                                Manage Users
+                                إدارة المستخدمين
                             </a>
                         </div>
                     </div>

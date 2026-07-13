@@ -1,6 +1,6 @@
 @model OrderViewModel
 @{
-    ViewData["Title"] = "Order Confirmation";
+    ViewData["Title"] = "تأكيد الطلب";
 }
 
 <div class="container py-5">
@@ -13,47 +13,59 @@
                             <i class="bi bi-check-lg text-success" style="font-size: 3rem;"></i>
                         </div>
                     </div>
-                    <h1 class="fw-bold mb-2">Order Placed Successfully!</h1>
-                    <p class="lead text-muted">Thank you for your purchase. Your order has been confirmed.</p>
+                    <h1 class="fw-bold mb-2">تم تأكيد الطلب بنجاح!</h1>
+                    <p class="lead text-muted">شكراً لشرائك. تم تأكيد طلبك وسيتم معالجته قريباً.</p>
 
                     <div class="bg-light rounded p-4 my-4 text-start">
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <small class="text-muted d-block">Order Number</small>
+                                <small class="text-muted d-block">رقم الطلب</small>
                                 <span class="fw-bold">#@Model.OrderId</span>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <small class="text-muted d-block">Order Date</small>
+                                <small class="text-muted d-block">تاريخ الطلب</small>
                                 <span class="fw-bold">@Model.OrderDate.ToString("MMM dd, yyyy HH:mm")</span>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <small class="text-muted d-block">Status</small>
-                                <span class="badge bg-warning">@Model.Status</span>
+                                <small class="text-muted d-block">الحالة</small>
+                                <span class="badge bg-warning">
+                                    @(Model.Status == "Completed" ? "مكتمل" :
+                                      Model.Status == "Pending" ? "قيد الانتظار" :
+                                      Model.Status == "Processing" ? "قيد المعالجة" :
+                                      Model.Status == "Cancelled" ? "ملغي" :
+                                      Model.Status)
+                                </span>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <small class="text-muted d-block">Total Amount</small>
-                                <span class="fw-bold text-primary fs-5">$@Model.TotalPrice.ToString("F2")</span>
+                                <small class="text-muted d-block">المبلغ الإجمالي</small>
+                                <span class="fw-bold text-primary fs-5">@Model.TotalPrice.ToString("F2") $</span>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <small class="text-muted d-block">Payment Method</small>
-                                <span class="fw-bold">@Model.PaymentMethod</span>
+                                <small class="text-muted d-block">طريقة الدفع</small>
+                                <span class="fw-bold">
+                                    @(Model.PaymentMethod == "Credit Card" ? "بطاقة ائتمان" :
+                                      Model.PaymentMethod == "Debit Card" ? "بطاقة خصم مباشر" :
+                                      Model.PaymentMethod == "PayPal" ? "باي بال" :
+                                      Model.PaymentMethod == "Cash on Delivery" ? "الدفع عند الاستلام" :
+                                      Model.PaymentMethod)
+                                </span>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <small class="text-muted d-block">Shipping To</small>
-                                <span class="fw-bold">@Model.ShippingCity, @Model.ShippingCountry</span>
+                                <small class="text-muted d-block">الشحن إلى</small>
+                                <span class="fw-bold">@Model.ShippingCity، @Model.ShippingCountry</span>
                             </div>
                         </div>
                     </div>
 
-                    <h5 class="fw-bold mb-3">Order Items</h5>
+                    <h5 class="fw-bold mb-3">منتجات الطلب</h5>
                     <div class="table-responsive">
                         <table class="table table-borderless">
                             <thead class="table-light">
                                 <tr>
-                                    <th class="text-start">Book</th>
-                                    <th class="text-center">Qty</th>
-                                    <th class="text-end">Price</th>
-                                    <th class="text-end">Total</th>
+                                    <th class="text-start">الكتاب</th>
+                                    <th class="text-center">الكمية</th>
+                                    <th class="text-end">السعر</th>
+                                    <th class="text-end">المجموع</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -62,15 +74,15 @@
                                     <tr>
                                         <td class="text-start">@item.BookTitle</td>
                                         <td class="text-center">@item.Quantity</td>
-                                        <td class="text-end">$@item.UnitPrice.ToString("F2")</td>
-                                        <td class="text-end fw-bold">$@item.SubTotal.ToString("F2")</td>
+                                        <td class="text-end">@item.UnitPrice.ToString("F2") $</td>
+                                        <td class="text-end fw-bold">@item.SubTotal.ToString("F2") $</td>
                                     </tr>
                                 }
                             </tbody>
                             <tfoot class="table-light">
                                 <tr>
-                                    <td colspan="3" class="text-end fw-bold">Total:</td>
-                                    <td class="text-end fw-bold text-primary">$@Model.TotalPrice.ToString("F2")</td>
+                                    <td colspan="3" class="text-end fw-bold">الإجمالي:</td>
+                                    <td class="text-end fw-bold text-primary">@Model.TotalPrice.ToString("F2") $</td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -78,10 +90,10 @@
 
                     <div class="d-flex justify-content-center gap-3 mt-4">
                         <a asp-action="Index" class="btn btn-primary">
-                            <i class="bi bi-bag me-2"></i>My Orders
+                            <i class="bi bi-bag me-2"></i>طلباتي
                         </a>
                         <a asp-controller="Books" asp-action="Index" class="btn btn-outline-primary">
-                            <i class="bi bi-book me-2"></i>Continue Shopping
+                            <i class="bi bi-book me-2"></i>متابعة التسوق
                         </a>
                     </div>
                 </div>

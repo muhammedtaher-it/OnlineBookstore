@@ -1,6 +1,6 @@
 @model CategoryViewModel
 @{
-    ViewData["Title"] = "Edit Category";
+    ViewData["Title"] = "تعديل التصنيف";
 }
 
 <div class="container py-5">
@@ -8,7 +8,7 @@
         <div class="col-lg-6">
             <div class="card shadow border-0">
                 <div class="card-header bg-warning text-dark py-3">
-                    <h4 class="mb-0"><i class="bi bi-pencil me-2"></i>Edit Category</h4>
+                    <h4 class="mb-0"><i class="bi bi-pencil me-2"></i>تعديل التصنيف</h4>
                 </div>
                 <div class="card-body p-4">
                     <form asp-action="Edit" method="post">
@@ -29,9 +29,9 @@
 
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-warning">
-                                <i class="bi bi-check-lg me-2"></i>Update Category
+                                <i class="bi bi-check-lg me-2"></i>تحديث التصنيف
                             </button>
-                            <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+                            <a asp-action="Index" class="btn btn-outline-secondary">إلغاء</a>
                         </div>
                     </form>
                 </div>

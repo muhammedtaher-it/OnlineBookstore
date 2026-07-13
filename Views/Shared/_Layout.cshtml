@@ -1,20 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Online Bookstore</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    <title>@ViewData["Title"] - متجر الكتب</title>
+    <!-- تم تغيير bootstrap إلى النسخة التي تدعم الـ RTL -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+    <!-- إضافة الخط العربي Cairo -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     @await RenderSectionAsync("Styles", required: false)
+    <!-- تطبيق الخط على الموقع -->
+    <style>
+            body {
+                font-family: 'Cairo', sans-serif;
+            }
+    </style>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
             <div class="container">
                 <a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Index">
-                    <i class="bi bi-book-half me-2"></i>Online Bookstore
+                    <i class="bi bi-book-half me-2"></i>متجر الكتب
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,24 +33,24 @@
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="Index">
-                                <i class="bi bi-house me-1"></i>Home
+                                <i class="bi bi-house me-1"></i>الرئيسية
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Books" asp-action="Index">
-                                <i class="bi bi-book me-1"></i>Books
+                                <i class="bi bi-book me-1"></i>الكتب
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Categories" asp-action="Index">
-                                <i class="bi bi-grid me-1"></i>Categories
+                                <i class="bi bi-grid me-1"></i>التصنيفات
                             </a>
                         </li>
                         @if (User.Identity?.IsAuthenticated == true)
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Orders" asp-action="Index">
-                                    <i class="bi bi-bag me-1"></i>My Orders
+                                    <i class="bi bi-bag me-1"></i>طلباتي
                                 </a>
                             </li>
                         }
@@ -49,23 +58,23 @@
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                    <i class="bi bi-speedometer2 me-1"></i>Admin
+                                    <i class="bi bi-speedometer2 me-1"></i>لوحة التحكم
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" asp-controller="Admin" asp-action="Dashboard">Dashboard</a></li>
-                                    <li><a class="dropdown-item" asp-controller="Admin" asp-action="Users">Manage Users</a></li>
-                                    <li><a class="dropdown-item" asp-controller="Admin" asp-action="Books">Manage Books</a></li>
-                                    <li><a class="dropdown-item" asp-controller="Admin" asp-action="Orders">Manage Orders</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Admin" asp-action="Dashboard">الرئيسية</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Admin" asp-action="Users">إدارة المستخدمين</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Admin" asp-action="Books">إدارة الكتب</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Admin" asp-action="Orders">إدارة الطلبات</a></li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" asp-controller="Books" asp-action="Create">Add New Book</a></li>
-                                    <li><a class="dropdown-item" asp-controller="Categories" asp-action="Create">Add New Category</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Books" asp-action="Create">إضافة كتاب جديد</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Categories" asp-action="Create">إضافة تصنيف جديد</a></li>
                                 </ul>
                             </li>
                         }
                     </ul>
                     <form class="d-flex me-3" asp-controller="Books" asp-action="Index" method="get">
                         <div class="input-group">
-                            <input type="text" name="search" class="form-control form-control-sm" placeholder="Search books..."
+                            <input type="text" name="search" class="form-control form-control-sm" placeholder="ابحث عن كتب..."
                                    value="@ViewContext.HttpContext.Request.Query["search"]" />
                             <button class="btn btn-light btn-sm" type="submit">
                                 <i class="bi bi-search"></i>
@@ -86,11 +95,11 @@
                                     <i class="bi bi-person-circle me-1"></i>@User.Identity?.Name
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="Profile"><i class="bi bi-person me-2"></i>Profile</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="Profile"><i class="bi bi-person me-2"></i>الملف الشخصي</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li>
                                         <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
-                                            <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right me-2"></i>Logout</button>
+                                            <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right me-2"></i>تسجيل الخروج</button>
                                         </form>
                                     </li>
                                 </ul>
@@ -100,12 +109,12 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Account" asp-action="Login">
-                                    <i class="bi bi-box-arrow-in-right me-1"></i>Login
+                                    <i class="bi bi-box-arrow-in-right me-1"></i>تسجيل الدخول
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link btn btn-light text-primary btn-sm px-3 ms-2" asp-controller="Account" asp-action="Register">
-                                    <i class="bi bi-person-plus me-1"></i>Register
+                                    <i class="bi bi-person-plus me-1"></i>إنشاء حساب
                                 </a>
                             </li>
                         }
@@ -151,24 +160,24 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <h5 class="mb-3"><i class="bi bi-book-half me-2"></i>Online Bookstore</h5>
-                    <p class="text-muted">Your one-stop destination for all your reading needs. Discover, explore, and purchase books from various genres.</p>
+                    <h5 class="mb-3"><i class="bi bi-book-half me-2"></i>متجر الكتب</h5>
+                    <p class="text-muted">وجهتك المثالية لكل ما تحتاجه من قراءة. اكتشف، استكشف، واشترِ الكتب من مختلف التصنيفات.</p>
                 </div>
                 <div class="col-md-4">
-                    <h5 class="mb-3">Quick Links</h5>
+                    <h5 class="mb-3">روابط سريعة</h5>
                     <ul class="list-unstyled">
-                        <li><a asp-controller="Home" asp-action="Index" class="text-muted text-decoration-none">Home</a></li>
-                        <li><a asp-controller="Books" asp-action="Index" class="text-muted text-decoration-none">Books</a></li>
-                        <li><a asp-controller="Categories" asp-action="Index" class="text-muted text-decoration-none">Categories</a></li>
-                        <li><a asp-controller="Home" asp-action="About" class="text-muted text-decoration-none">About Us</a></li>
+                        <li><a asp-controller="Home" asp-action="Index" class="text-muted text-decoration-none">الرئيسية</a></li>
+                        <li><a asp-controller="Books" asp-action="Index" class="text-muted text-decoration-none">الكتب</a></li>
+                        <li><a asp-controller="Categories" asp-action="Index" class="text-muted text-decoration-none">التصنيفات</a></li>
+                        <li><a asp-controller="Home" asp-action="About" class="text-muted text-decoration-none">من نحن</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
-                    <h5 class="mb-3">Contact</h5>
+                    <h5 class="mb-3">تواصل معنا</h5>
                     <ul class="list-unstyled text-muted">
-                        <li><i class="bi bi-geo-alt me-2"></i>123 Book Street, Library City</li>
+                        <li><i class="bi bi-geo-alt me-2"></i>123 شارع الكتب، مدينة المكتبات</li>
                         <li><i class="bi bi-envelope me-2"></i>support@onlinebookstore.com</li>
-                        <li><i class="bi bi-telephone me-2"></i>+1 (555) 123-4567</li>
+                        <li><i class="bi bi-telephone me-2"></i>4567-123 (555) 1+</li>
                     </ul>
                     <div class="mt-3">
                         <a href="#" class="text-muted me-3"><i class="bi bi-facebook fs-5"></i></a>
@@ -179,7 +188,7 @@
             </div>
             <hr class="my-4 border-secondary" />
             <div class="text-center text-muted">
-                <p class="mb-0">&copy; @DateTime.Now.Year Online Bookstore. All rights reserved. | CS401 Advanced Web Development</p>
+                <p class="mb-0">&copy; @DateTime.Now.Year متجر الكتب. جميع الحقوق محفوظة</p>
             </div>
         </div>
     </footer>

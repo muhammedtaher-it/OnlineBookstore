@@ -97,7 +97,7 @@ namespace OnlineBookstore.Controllers
             await _categoryRepository.AddAsync(category);
             await _categoryRepository.SaveChangesAsync();
 
-            TempData["Success"] = $"Category '{category.Name}' has been created successfully!";
+            TempData["Success"] = $"تم إنشاء التصنيف '{category.Name}' بنجاح!";
             return RedirectToAction(nameof(Index));
         }
 
@@ -147,7 +147,7 @@ namespace OnlineBookstore.Controllers
             await _categoryRepository.UpdateAsync(category);
             await _categoryRepository.SaveChangesAsync();
 
-            TempData["Success"] = $"Category '{category.Name}' has been updated successfully!";
+            TempData["Success"] = $"تم تحديث التصنيف '{category.Name}' بنجاح!";
             return RedirectToAction(nameof(Index));
         }
 
@@ -183,14 +183,14 @@ namespace OnlineBookstore.Controllers
 
             if (await _categoryRepository.HasBooksAsync(id))
             {
-                TempData["Error"] = $"Cannot delete category '{category.Name}' because it has associated books.";
+                TempData["Error"] = $"لا يمكن حذف التصنيف '{category.Name}' لأنه يحتوي على كتب مرتبطة به.";
                 return RedirectToAction(nameof(Index));
             }
 
             await _categoryRepository.DeleteAsync(id);
             await _categoryRepository.SaveChangesAsync();
 
-            TempData["Success"] = $"Category '{category.Name}' has been deleted successfully!";
+            TempData["Success"] = $"تم حذف التصنيف '{category.Name}' بنجاح!";
             return RedirectToAction(nameof(Index));
         }
     }

@@ -1,16 +1,16 @@
 @model IEnumerable<OnlineBookstore.Models.Order>
 @{
-    ViewData["Title"] = "Manage Orders";
+    ViewData["Title"] = "إدارة الطلبات";
 }
 
 <div class="container py-4">
     <div class="row align-items-center mb-4">
         <div class="col-md-6">
-            <h1 class="fw-bold mb-0"><i class="bi bi-bag-check text-primary me-2"></i>Manage Orders</h1>
+            <h1 class="fw-bold mb-0"><i class="bi bi-bag-check text-primary me-2"></i>إدارة الطلبات</h1>
         </div>
         <div class="col-md-6 text-md-end mt-3 mt-md-0">
             <a asp-action="Dashboard" class="btn btn-outline-primary">
-                <i class="bi bi-arrow-left me-2"></i>Back to Dashboard
+                <i class="bi bi-arrow-right me-2"></i>العودة للوحة التحكم
             </a>
         </div>
     </div>
@@ -21,13 +21,13 @@
                 <table class="table table-hover mb-0">
                     <thead class="table-light">
                         <tr>
-                            <th>Order #</th>
-                            <th>Customer</th>
-                            <th>Date</th>
-                            <th>Total</th>
-                            <th>Payment</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th>رقم الطلب</th>
+                            <th>العميل</th>
+                            <th>التاريخ</th>
+                            <th>الإجمالي</th>
+                            <th>طريقة الدفع</th>
+                            <th>الحالة</th>
+                            <th>الإجراءات</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,18 +35,29 @@
                         {
                             <tr>
                                 <td class="fw-bold">#@order.OrderId</td>
-                                <td>@(order.User?.FullName ?? "Unknown")</td>
+                                <td>@(order.User?.FullName ?? "غير معروف")</td>
                                 <td>@order.OrderDate.ToString("MMM dd, yyyy HH:mm")</td>
-                                <td class="fw-bold text-primary">$@order.TotalPrice.ToString("F2")</td>
-                                <td>@order.PaymentMethod</td>
+                                <td class="fw-bold text-primary">@order.TotalPrice.ToString("F2") $</td>
+                                <td>
+                                    @(order.PaymentMethod == "Credit Card" ? "بطاقة ائتمان" :
+                                      order.PaymentMethod == "Debit Card" ? "بطاقة خصم مباشر" :
+                                      order.PaymentMethod == "PayPal" ? "باي بال" :
+                                      order.PaymentMethod == "Cash on Delivery" ? "الدفع عند الاستلام" :
+                                      order.PaymentMethod)
+                                </td>
                                 <td>
                                     <span class="badge @(order.Status == "Completed" || order.Status == "Delivered" ? "bg-success" : order.Status == "Pending" ? "bg-warning text-dark" : "bg-info")">
-                                        @order.Status
+                                        @(order.Status == "Completed" ? "مكتمل" :
+                                          order.Status == "Delivered" ? "تم التوصيل" :
+                                          order.Status == "Pending" ? "قيد الانتظار" :
+                                          order.Status == "Processing" ? "قيد المعالجة" :
+                                          order.Status == "Cancelled" ? "ملغي" :
+                                          order.Status)
                                     </span>
                                 </td>
                                 <td>
                                     <div class="btn-group">
-                                        <a asp-controller="Orders" asp-action="Details" asp-route-id="@order.OrderId" class="btn btn-sm btn-outline-primary">
+                                        <a asp-controller="Orders" asp-action="Details" asp-route-id="@order.OrderId" class="btn btn-sm btn-outline-primary" title="عرض التفاصيل">
                                             <i class="bi bi-eye"></i>
                                         </a>
                                         @if (order.Status == "Pending")
@@ -54,8 +65,8 @@
                                             <form asp-controller="Orders" asp-action="UpdateStatus" method="post" class="d-inline">
                                                 <input type="hidden" name="orderId" value="@order.OrderId" />
                                                 <input type="hidden" name="status" value="Processing" />
-                                                <button type="submit" class="btn btn-sm btn-outline-warning">
-                                                    <i class="bi bi-arrow-right"></i>
+                                                <button type="submit" class="btn btn-sm btn-outline-warning" title="بدء المعالجة">
+                                                    <i class="bi bi-arrow-left"></i> @* أيقونة تشير لليسار للدلالة على التقدم للخطوة التالية في RTL *@
                                                 </button>
                                             </form>
                                         }
@@ -64,7 +75,7 @@
                                             <form asp-controller="Orders" asp-action="UpdateStatus" method="post" class="d-inline">
                                                 <input type="hidden" name="orderId" value="@order.OrderId" />
                                                 <input type="hidden" name="status" value="Completed" />
-                                                <button type="submit" class="btn btn-sm btn-outline-success">
+                                                <button type="submit" class="btn btn-sm btn-outline-success" title="إتمام الطلب">
                                                     <i class="bi bi-check-lg"></i>
                                                 </button>
                                             </form>

@@ -5,7 +5,7 @@ using OnlineBookstore.Models;
 
 namespace OnlineBookstore.ApiControllers
 {
-    [Route("api/[controller]")]
+    [Route("api/books")]
     [ApiController]
     public class BooksApiController : ControllerBase
     {
